@@ -133,7 +133,10 @@ function Order() {
               {t('orders.order_details.client')}
             </span>
 
-            <span className={style.agentRow}>{transaction.agent}</span>
+            <span className={style.agentRow}>
+              {' '}
+              {transaction.translate?.[i18n.language] || transaction.name}
+            </span>
           </div>
 
           <div className={style.divider} />
