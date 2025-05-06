@@ -22,15 +22,15 @@ function BasketCheckout() {
   const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
   const [createOrder] = useCreateOrderMutation();
-  // Рекурсивный поиск категории по имени
-  const findCategoryByName = (
+  const findCategoryById = (
     categories: Category[],
-    name: string,
+    id: number,
   ): Category | null => {
     for (const category of categories) {
-      if (category.name === name) return category;
+      // console.log(category);
+      if (category.id === id) return category;
       if (category.children) {
-        const found = findCategoryByName(category.children, name);
+        const found = findCategoryById(category.children, id);
         if (found) return found;
       }
     }
@@ -38,7 +38,7 @@ function BasketCheckout() {
   };
   const basketItemsDetailed = basketProducts
     .map((basketItem) => {
-      const category = findCategoryByName(products, basketItem.cat_name);
+      const category = findCategoryById(products, basketItem.cat_id);
       if (!category) return null;
       const product = category.products.find(
         (p) => p.product_id === basketItem.id,

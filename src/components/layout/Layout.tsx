@@ -68,7 +68,7 @@ function Layout() {
     if (!isBasketLoading && userBasketData?.folders?.length) {
       const formattedBasket = userBasketData.folders.flatMap((folder) =>
         folder.products.map((product) => ({
-          cat_name: folder.name,
+          cat_id: folder.id,
           id: Number(product.id),
           quantity: product.quantity,
         })),

@@ -1,16 +1,16 @@
-import style from "./productcard.module.scss";
-import NoFoto from "../../assets/image/no-foto.jpeg";
-import TrashIcon from "../../assets/svg/trash.svg?react";
-import Text from "../UI/Text/Text";
-import Subtitle from "../UI/Subtitle/Subtitle";
-import InBasketButton from "../InBasketButton/InBasketButton";
-import clsx from "clsx";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { removeProductFromBasket } from "../../store/slices/basketSlice";
-import { openProductModal } from "../../store/slices/modalSlice";
-import { useChangeBasketMutation } from "../../store/services";
-import { useTranslation } from "react-i18next";
+import style from './productcard.module.scss';
+import NoFoto from '../../assets/image/no-foto.jpeg';
+import TrashIcon from '../../assets/svg/trash.svg?react';
+import Text from '../UI/Text/Text';
+import Subtitle from '../UI/Subtitle/Subtitle';
+import InBasketButton from '../InBasketButton/InBasketButton';
+import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { removeProductFromBasket } from '../../store/slices/basketSlice';
+import { openProductModal } from '../../store/slices/modalSlice';
+import { useChangeBasketMutation } from '../../store/services';
+import { useTranslation } from 'react-i18next';
 
 interface ProductCardProps {
   title: string;
@@ -24,7 +24,7 @@ interface ProductCardProps {
   categoryName: string;
   categoryId: number;
   subCategoryName?: string;
-  type: "bundle" | "product";
+  type: 'bundle' | 'product';
   onClick?: () => void;
 }
 
@@ -57,9 +57,9 @@ function ProductCard({
         code: seriesNumber,
         price,
         categ_name: categoryName,
-        sub_categ_name: subCategoryName || "",
+        sub_categ_name: subCategoryName || '',
         images: [photo || NoFoto],
-      })
+      }),
     );
   };
 
@@ -76,7 +76,7 @@ function ProductCard({
       .unwrap()
       .then((v) => console.log(v))
       .catch((error) => {
-        console.error("Ошибка при обновлении корзины:", error);
+        console.error('Ошибка при обновлении корзины:', error);
       });
   };
 
@@ -95,15 +95,15 @@ function ProductCard({
     >
       <div className={clsx(style.info, isBasketCard && style.infoBasket)}>
         <div className={style.infoTextWrapper}>
-          <img src={photo || NoFoto} alt={t("product.image_alt")} />
+          <img src={photo || NoFoto} alt={t('product.image_alt')} />
           <div className={style.infoText}>
             {/* {categoryName === 'Новые товары' && (
               <Text className={style.badge}>{t("product.new_badge")}</Text>
             )} */}
             <Subtitle className={style.title}>
-              {title} ({quantity} {t("product.units")})
+              {title} ({quantity} {t('product.units')})
             </Subtitle>
-            {type === "bundle" && title && <Text>{seriesNumber}</Text>}
+            {type === 'bundle' && title && <Text>{seriesNumber}</Text>}
           </div>
         </div>
         {isBasketCard && (
@@ -115,17 +115,13 @@ function ProductCard({
       <div className={clsx(style.price, isBasketCard && style.basketPrice)}>
         <div className={style.priceTile}>
           <Subtitle>
-            {formatPrice(price)}{" "}
-            <span>
-              ₩{type !== "product" && `${t("breadcrumbs.kor")}`}
-            </span>
+            {formatPrice(price)}{' '}
+            <span>₩{type !== 'product' && `${t('breadcrumbs.kor')}`}</span>
           </Subtitle>
           {isBasketCard && (
             <Text>
-              {formatPrice(price)}{" "}
-              <span>
-                ₩{type !== "product" && `${t("breadcrumbs.kor")}`}
-              </span>
+              {formatPrice(price)}{' '}
+              <span>₩{type !== 'product' && `${t('breadcrumbs.kor')}`}</span>
             </Text>
           )}
         </div>
@@ -141,7 +137,7 @@ function ProductCard({
                 id={id}
                 isEditable={isEditable}
                 productQuantity={Number(quantity)}
-                categoryName={categoryName}
+                categoryId={categoryId}
               />
             </div>
           </div>
@@ -150,7 +146,7 @@ function ProductCard({
             id={id}
             isEditable={isEditable}
             productQuantity={Number(quantity)}
-            categoryName={categoryName}
+            categoryId={categoryId}
           />
         )}
       </div>

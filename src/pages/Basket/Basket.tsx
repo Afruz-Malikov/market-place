@@ -16,14 +16,15 @@ function Basket() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
   // Рекурсивный поиск категории по имени
-  const findCategoryByName = (
+  const findCategoryById = (
     categories: Category[],
-    name: string,
+    id: number,
   ): Category | null => {
     for (const category of categories) {
-      if (category.name === name) return category;
+      // console.log(category);
+      if (category.id === id) return category;
       if (category.children) {
-        const found = findCategoryByName(category.children, name);
+        const found = findCategoryById(category.children, id);
         if (found) return found;
       }
     }
@@ -32,7 +33,6 @@ function Basket() {
 
   const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
-
   function getProductLabel(count: number): string {
     const lang = i18n.language;
 
@@ -86,15 +86,22 @@ function Basket() {
 
     return `${count} positions`;
   }
-
+  console.log(basketProducts);
   const basketItemsDetailed = useMemo(() => {
     return basketProducts
       .map((basketItem) => {
-        const category = findCategoryByName(products, basketItem.cat_name);
+        const category = findCategoryById(products, basketItem.cat_id);
         if (!category) return null;
-        const product = category.products.find(
-          (p) => p.product_id === basketItem.id,
-        );
+        const product = category.products.find((p) => {
+          console.log(
+            category.name,
+            p.product_id,
+            basketItem.id,
+            p.product_id === basketItem.id,
+          );
+
+          return p.product_id === basketItem.id;
+        });
         if (!product) return null;
 
         return {

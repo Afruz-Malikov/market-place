@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface BasketProduct {
-  cat_name: string;
+  cat_id: number;
   id: number;
   quantity: string;
 }
@@ -19,7 +19,7 @@ export const basketSlice = createSlice({
       action: PayloadAction<{
         id: number;
         quantity: string;
-        cat_name: string;
+        cat_id: number;
       }>,
     ) {
       const index = state.basket.findIndex(

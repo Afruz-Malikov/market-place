@@ -18,12 +18,12 @@ function InBasketButton({
   productQuantity,
   id,
   isEditable,
-  categoryName,
+  categoryId,
 }: {
   productQuantity: number;
   isEditable?: boolean;
   id: number;
-  categoryName: string;
+  categoryId: number;
 }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ function InBasketButton({
       } catch (error) {
         console.error('Ошибка при обновлении корзины:', error);
       }
-    }, 500)
+    }, 500),
   );
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function InBasketButton({
         addProductToBasket({
           id: id,
           quantity: newQuantity.toString(),
-          cat_name: categoryName,
+          cat_id: categoryId,
         }),
       );
     } else {
