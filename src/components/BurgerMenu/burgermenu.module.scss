@@ -1,0 +1,107 @@
+.modal {
+  width: 80vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  background-color: white;
+  visibility: hidden;
+  z-index: 999;
+  padding: 20px 20px 35px 20px;
+  box-shadow: -2px 3px 34px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+  & button,
+  .phone {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 18px;
+    color: #20273d;
+    transition: color ease 0.3s;
+    gap: 11px;
+    & svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--color-blue);
+    }
+    &:active {
+      color: var(--color-blue);
+    }
+  }
+  .phone {
+    & svg {
+      fill: black;
+    }
+  }
+  .closeIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    & svg {
+      width: 10px;
+      height: 10px;
+      fill: gray;
+    }
+  }
+  &.active {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 998;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background: rgba(255, 255, 255, 0.85);
+
+  &.active {
+    visibility: visible;
+    opacity: 0.88;
+  }
+}
+.closeIconWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 46px;
+  & h1 {
+    font-size: 18px;
+  }
+}
+.language {
+  width: 30%;
+}
+.catalogButton {
+  position: relative;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  &.active {
+    & button {
+      color: var(--color-blue);
+    }
+  }
+}

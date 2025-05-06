@@ -1,0 +1,97 @@
+{
+  "breadcrumbs": {
+    "products": "Выбор товаров",
+    "all_products": "Все товары",
+    "basket": "Корзина",
+    "checkout": "Оформление заказа",
+    "orders": "Заказы",
+    "kor": "/кор"
+  },
+  "header": {
+    "catalog": "Каталог",
+    "search_placeholder": "Искать товары",
+    "in_basketMobile": "Корзина",
+    "in_basket": "В корзине",
+    "orders": "Заказы",
+    "site_title": "Лучшие Продукты",
+    "work_schedule": "График работы: 09:30-18:00 Пн-ПТ",
+    "phone_number": "+82 10-5615-5694",
+    "top_desc": "НАЗВАНИЕ - описание"
+  },
+  "success_checkout": {
+    "thank_you": "Спасибо",
+    "order_message": "Ваш заказ № {{orderId}} на сумму {{amount}} отправлен",
+    "order_more": "Заказать еще"
+  },
+  "footer": {
+    "sending": "Отправка...",
+    "success_message": "Ваш запрос был успешно отправлен.",
+    "feedback_title": "Обратная Связь",
+    "feedback_description": "Заполните форму и мы с радостью свяжемся с вами. Наш консультант ответит на все ваши вопросы.",
+    "phone_placeholder": "Номер телефона",
+    "email_placeholder": "E-mail",
+    "task_description": "Опишите вашу задачу",
+    "message_placeholder": "Сообщение",
+    "send_button": "Отправить",
+    "phone_title": "Телефон",
+    "phone_text": "+7 (928) 221-08-88",
+    "working_hours_title": "Режим заказов",
+    "working_hours_text": "Ежедневно с 03:00 до 23:59",
+    "email_title": "E-mail",
+    "email_text": "info@gmail.com",
+    "address_title": "Адрес",
+    "address_text": "Lorem ipsum dolor sit amet consectetur. Vel dolor cursus faucibus diam eget ultricies."
+  },
+  "basket": {
+    "title": "Корзина",
+    "empty": "В корзине ничего нет",
+    "checkout_button": "Оформить Заказ",
+    "warning_text": "Стоимость и состав заказа могут измениться, если товара нет в наличии",
+    "order_info": "Информация о заказе",
+    "total": "Итог",
+    "go_to_shop": "Перейти в магазин",
+    "count": "1 товар 1 позиция"
+  },
+  "basket_checkout": {
+    "title": "Оформление заказа",
+    "comment_label": "Введите данные, адрес или комментарий",
+    "order_button": "Оформить Заказ",
+    "product_count": "Товара",
+    "loading": "Пожалуйста, подождите...",
+    "nothing_to_checkout": "Здесь нечего оформлять"
+  },
+  "orders": {
+    "table": {
+      "number": "№",
+      "time": "Время",
+      "client": "Контрагент",
+      "total": "Сумма",
+      "paid": "Оплачено",
+      "shipped": "Отгружено"
+    },
+    "pagination": {
+      "prev": ">",
+      "next": "<",
+      "first": ">>",
+      "last": "<<",
+      "of": "из"
+    },
+    "summary": {
+      "total": "Сумма",
+      "paid": "Оплачено",
+      "shipped": "Отгружено"
+    },
+    "order_details": {
+      "title": "Детали заказа",
+      "number": "№",
+      "time": "Время",
+      "client": "Контрагент",
+      "total": "Сумма",
+      "paid": "Оплачено",
+      "shipped": "Отгружено"
+    }
+  },
+  "loading": "Загрузка...",
+  "in_basket": "В корзину",
+  "about_more": "Узнать подробнее"
+}

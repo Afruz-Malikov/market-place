@@ -1,0 +1,103 @@
+.modal {
+  width: fit-content;
+  height: 35%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  background-color: white;
+  z-index: -999;
+  opacity: 0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  @media (max-width: 999px) {
+    width: 40vw;
+    height: auto;
+    flex-direction: column;
+    text-align: center;
+    .closeIcon {
+      display: none;
+    }
+    .closeIconMobile {
+      display: flex;
+    }
+    & button {
+      width: 100%;
+      justify-content: center;
+    }
+    & img {
+      max-height: 40vh;
+    }
+  }
+  @media (max-width: 650px) {
+    width: 90vw;
+    height: auto;
+  }
+  &.active {
+    z-index: 999;
+    opacity: 1;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+  transition: all 0.3s ease-in;
+
+  &.active {
+    background: rgba(0, 0, 0, 0.63);
+    visibility: visible;
+    opacity: 0.88;
+  }
+}
+
+.image {
+  border-radius: 20px;
+}
+.info {
+  padding: 20px;
+  min-width: 320px;
+  & p {
+    margin-top: 12px;
+    margin-bottom: 35px;
+    color: black;
+  }
+}
+.closeIcon,
+.closeIconMobile {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  & button {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin-bottom: 9px;
+    background-color: #eef2f9;
+  }
+  & svg {
+    width: 7px;
+    height: 7px;
+    fill: gray;
+  }
+}
+
+.closeIconMobile {
+  width: 100%;
+  justify-content: end;
+  height: 40px;
+  margin-top: 5px;
+  margin-right: 10px;
+  display: none;
+}

@@ -1,0 +1,127 @@
+.title {
+  // font-size: 24px;
+  font-weight: 600;
+}
+.categoryTitle {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 21px;
+}
+.wrapper {
+  margin-bottom: 20px;
+}
+.products {
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 999px) {
+    flex-direction: column;
+  }
+}
+.productsWrapper {
+  width: 65%;
+  @media (max-width: 999px) {
+    width: 100%;
+  }
+}
+.productsSumWrapper {
+  width: 30%;
+  padding-top: 42px;
+  @media (max-width: 999px) {
+    width: 100%;
+  }
+}
+.productsSum {
+  width: 100%;
+  height: 274px;
+  padding: 40px 30px;
+  border-radius: 14px;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  & button {
+    width: 100%;
+    justify-content: center;
+    &:hover {
+      background-color: var(--color-blue);
+      color: var(--color-default);
+    }
+  }
+  @media (max-width: 1090px) {
+    padding: 30px 17px;
+  }
+  @media (max-width: 999px) {
+    display: none;
+  }
+}
+.productSumMobile {
+  display: none;
+  width: 100%;
+  // height: 274px;
+  padding: 20px 16px;
+  border-radius: 14px;
+  background-color: #f6f6f6;
+  .lines {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    height: 1px;
+    background-color: #d7d9de;
+  }
+  & .result {
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 380px) {
+      & h1 {
+        font-size: 20px;
+      }
+    }
+  }
+  & button {
+    margin-top: 30px;
+    justify-content: center;
+    width: 100%;
+  }
+  @media (max-width: 999px) {
+    display: block;
+  }
+}
+.productPrice {
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+.productCount {
+  font-weight: 600;
+  font-size: 13px;
+  color: rgba(24, 21, 21, 0.52);
+}
+
+.warningText {
+  margin-top: 16px;
+  font-weight: 500;
+  font-size: 13px;
+  color: rgba(24, 21, 21, 0.52);
+  @media (max-width: 999px) {
+    margin-top: 20px;
+    text-align: center;
+    width: 70%;
+  }
+}
+.warningTextWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.sliderContainer {
+  overflow: hidden;
+  height: 200vh;
+  width: 100%;
+  position: relative;
+}
+
+.checkoutPage {
+  height: 100vh;
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+}

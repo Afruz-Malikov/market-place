@@ -1,0 +1,190 @@
+.orderContainer {
+  gap: 15px;
+}
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 52px;
+  border-bottom: 2px solid #20273d;
+  @media (max-width: 999px) {
+    display: none;
+  }
+}
+
+.ordersTable th,
+.ordersTable td {
+  padding: 10px;
+  // text-align: left;
+  // border: 1px solid #ddd;
+}
+
+.ordersTable th {
+  // background-color: #f4f4f4;
+  font-weight: 600;
+  font-size: 20px;
+  border-bottom: 2px solid #20273d;
+  padding-bottom: 21px;
+}
+
+.ordersTable td {
+  padding: 22px;
+  font-weight: 600;
+  font-size: 17px;
+  text-align: center;
+  border-bottom: 1px solid #d7d9de;
+}
+
+.idRow,
+.agentRow {
+  color: #036ce5;
+}
+.idRow {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  & span {
+    font-size: 13px;
+    color: #868686;
+  }
+}
+.rowDate {
+  margin-right: 40px;
+}
+.paidRow,
+.shippedRow,
+.value {
+  text-align: end !important;
+  position: relative;
+  padding-right: 20px;
+  padding-left: 20px;
+  font-weight: 500;
+
+  @media (max-width: 999px) {
+    padding: 0;
+  }
+}
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  width: 90%;
+  background-color: #72bd27;
+  border-radius: 3px;
+}
+.paginationButton {
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  background: #e3e3e3;
+  color: #959595;
+  margin: 0 5px;
+  transform: rotate(-180deg);
+}
+.paginationCurrentPage {
+  margin: 0 20px;
+  font-weight: 600;
+  font-size: 17px;
+}
+.result {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 999px) {
+    padding: 10px;
+    margin-top: 20px;
+    flex-direction: column-reverse;
+  }
+}
+.resultSums {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & div {
+    margin-right: 20px;
+    font-weight: 800;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & span {
+      display: none;
+
+      @media (max-width: 999px) {
+        display: block;
+      }
+    }
+    @media (max-width: 999px) {
+      width: 100%;
+    }
+  }
+  @media (max-width: 999px) {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    margin-bottom: 54px;
+  }
+}
+.card {
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  padding: 16px;
+  display: none;
+  width: 100%;
+  @media (max-width: 999px) {
+    display: block;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  color: #666;
+  font-size: 14px;
+}
+
+.dateContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.dateLabel {
+  color: #666;
+  font-size: 14px;
+}
+.rowDate {
+  margin-right: 10px;
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 12px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+.clientRow {
+  flex-direction: column;
+  align-items: baseline;
+  gap: 5px;
+}

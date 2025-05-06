@@ -1,0 +1,98 @@
+{
+  "breadcrumbs": {
+    "products": "Products Selection",
+    "all_products": "All Products",
+    "basket": "Basket",
+    "checkout": "Checkout",
+    "orders": "Orders",
+    "kor": "/pack"
+  },
+  "header": {
+    "catalog": "Catalog",
+    "search_placeholder": "Search products",
+    "in_basket": "In basket",
+    "orders": "Orders",
+    "site_title": "Best Products",
+    "work_schedule": "Working hours: 09:30-18:00 Mon-Fri",
+    "phone_number": "+82 10-5615-5694",
+    "top_desc": "TITLE - description",
+    "in_basketMobile": "Basket"
+  },
+  "success_checkout": {
+    "thank_you": "Thank you",
+    "order_message": "Your order № {{orderId}} for the amount of {{amount}} has been sent",
+
+    "order_more": "Order more"
+  },
+  "footer": {
+    "success_message": "Your request has been sent successfully.",
+    "sending": "Sending...",
+    "feedback_title": "Feedback",
+    "feedback_description": "Fill out the form and we will be happy to contact you. Our consultant will answer all your questions.",
+    "phone_placeholder": "Phone Number",
+    "email_placeholder": "E-mail",
+    "task_description": "Describe your task",
+    "message_placeholder": "Message",
+    "send_button": "Send",
+    "phone_title": "Phone",
+    "phone_text": "+7 (928) 221-08-88",
+    "working_hours_title": "Working Hours",
+    "working_hours_text": "Daily from 9:00 AM to 9:00 PM",
+    "email_title": "E-mail",
+    "email_text": "info@gmail.com",
+    "address_title": "Address",
+    "address_text": "Lorem ipsum dolor sit amet consectetur. Vel dolor cursus faucibus diam eget ultricies."
+  },
+  "basket": {
+    "empty": "Your basket is empty",
+    "go_to_shop": "Go to the shop",
+    "title": "Basket",
+    "checkout_button": "Proceed to Checkout",
+    "warning_text": "The cost and contents of the order may change if the item is out of stock",
+    "order_info": "Order Information",
+    "total": "Total",
+    "count": "1 item 1 position"
+  },
+  "basket_checkout": {
+    "title": "Checkout",
+    "comment_label": "Enter details, address or comment",
+    "order_button": "Place Order",
+    "product_count": "Products",
+    "loading": "Please wait...",
+    "nothing_to_checkout": "There is nothing to checkout"
+  },
+  "orders": {
+    "table": {
+      "number": "No.",
+      "time": "Time",
+      "client": "Client",
+      "total": "Total",
+      "paid": "Paid",
+      "shipped": "Shipped"
+    },
+    "pagination": {
+      "prev": ">",
+      "next": "<",
+      "first": ">>",
+      "last": "<<",
+      "of": "of"
+    },
+    "summary": {
+      "total": "Total",
+      "paid": "Paid",
+      "shipped": "Shipped"
+    },
+    "order_details": {
+      "title": "Order Details",
+      "number": "No.",
+      "time": "Time",
+      "client": "Client",
+      "total": "Total",
+      "paid": "Paid",
+      "shipped": "Shipped"
+    }
+  },
+  "loading": "Loading...",
+  "in_basket": "In basket",
+  "about_more": "Learn more"
+}

@@ -1,0 +1,104 @@
+@import "./assets/fonts/Gilroy/stylesheet.css";
+:root {
+  /* colors */
+  --color-default: #ffffff;
+  --color-blue: #036ce5;
+  --color-red: #f55266;
+  --color-gray: #f6f6f6;
+}
+body {
+  font-family: "Gilroy", sans-serif;
+  margin: 0;
+}
+
+#root {
+  max-width: 100vw;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Gilroy", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
+  -ms-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+  }
+
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  text-wrap: balance;
+  user-select: text;
+}
+
+p {
+  user-select: text;
+  text-wrap: balance;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  text-wrap: balance;
+  user-select: text;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  outline: none;
+}
+
+img {
+  display: block;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: var(--fz);
+  padding: 0;
+  user-select: text;
+
+  svg,
+  span {
+    pointer-events: none;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  resize: none;
+}
+input {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+html {
+  scroll-behavior: smooth;
+}

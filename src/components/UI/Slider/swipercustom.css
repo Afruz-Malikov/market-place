@@ -1,0 +1,19 @@
+.swiper-pagination {
+  position: static !important;
+  margin-top: 10px;
+}
+.swiper-pagination-bullets {
+  bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+  width: 5px;
+  height: 5px;
+  background: gray;
+  opacity: 1;
+  margin: 0 3px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--color-blue);
+}

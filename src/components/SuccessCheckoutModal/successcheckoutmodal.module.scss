@@ -1,0 +1,74 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: auto;
+  min-width: 300px;
+  max-width: 90vw;
+  height: auto;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1000;
+  padding: 34px 90px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.13);
+  border-radius: 20px;
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0.4s ease;
+  & svg {
+    fill: var(--color-blue);
+    margin-bottom: 23px;
+  }
+  & h1 {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 18px;
+    // font-size: 24px;
+  }
+  & p {
+    font-weight: 500;
+    font-size: 19px;
+    color: black;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 33px;
+  }
+  & button {
+    justify-content: center;
+    width: 40%;
+  }
+  &.active {
+    transform: translate(-50%, -50%) scale(1);
+    visibility: visible;
+    opacity: 1;
+  }
+  @media (max-width: 999px) {
+    padding: 38px;
+    width: 90vw;
+    & button {
+      width: 100%;
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background: rgba(255, 255, 255, 0.85);
+
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
+}

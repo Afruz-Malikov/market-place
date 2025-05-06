@@ -1,0 +1,138 @@
+.modal {
+  width: 36%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  visibility: hidden;
+  z-index: 999;
+  padding: 20px 20px 34px 20px;
+  box-shadow: -2px 3px 34px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, visibility 0.3s ease;
+  overflow-y: auto;
+  &.active {
+    transform: translateX(0);
+    visibility: visible;
+  }
+  @media (max-width: 1090px) {
+    width: 36%;
+  }
+  @media (max-width: 999px) {
+    width: 100%;
+  }
+  @media (max-width: 400px) {
+    padding: 20px 20px 20% 20px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 998;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background: rgba(255, 255, 255, 0.85);
+
+  &.active {
+    visibility: visible;
+    opacity: 0.88;
+  }
+}
+
+.closeIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  margin-bottom: 25px;
+  background-color: #eef2f9;
+  & svg {
+    width: 11px;
+    height: 11px;
+    fill: gray;
+  }
+}
+.slider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  & img {
+    border-radius: 20px;
+    width: 300px;
+    height: 20%;
+    object-fit: cover;
+  }
+  @media (max-width: 999px) {
+    width: 100%;
+    & img {
+      width: 40%;
+      height: 40%;
+    }
+  }
+}
+.share {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+}
+
+.categories {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  & button {
+    display: flex;
+    gap: 10px;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 4px 15px;
+    border-radius: 40px;
+    background-color: #f7f7f7;
+    color: #9c9c9c;
+    transition: color ease-in 0.3s;
+    &::after {
+      content: '>';
+      color: #9c9c9c;
+    }
+    &:hover {
+      color: var(--color-blue);
+    }
+  }
+}
+.title {
+  margin-bottom: 25px;
+}
+.seriesNumber {
+  margin-bottom: 5px;
+}
+.toBasket {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    & span {
+      color: var(--color-blue);
+    }
+  }
+  @media (max-width: 390px) {
+    h2 {
+      font-size: 16px;
+    }
+    div {
+      max-width: 150px;
+    }
+  }
+}

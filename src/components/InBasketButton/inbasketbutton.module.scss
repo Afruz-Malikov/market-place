@@ -1,0 +1,44 @@
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counterButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 35px;
+  min-height: 35px;
+  background-color: var(--color-gray);
+  font-size: 18px;
+  border-radius: 55px;
+  font-weight: 100;
+  transition-duration: 0.5s;
+  transition-property: background-color;
+  & svg {
+    fill: black;
+    transition-duration: 0.5s;
+    transition-property: fill;
+  }
+
+  &:hover {
+    background-color: var(--color-blue);
+    & svg {
+      fill: white;
+    }
+  }
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 55px;
+  width: 55px;
+  height: 35px;
+  background: #f6f6f6;
+  text-align: center;
+}

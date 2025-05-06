@@ -1,0 +1,18 @@
+// .breadcrumbWrapper {
+//   @media (max-width: 999px) {
+//     display: none;
+//   }
+// }
+.breadcrumb {
+  & a {
+    font-size: 14px;
+  }
+  & span {
+    font-size: 14px;
+    color: #9c9c9c;
+    font-weight: 500;
+  }
+  &.active {
+    color: var(--color-blue);
+  }
+}

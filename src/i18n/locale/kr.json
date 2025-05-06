@@ -1,0 +1,97 @@
+{
+  "breadcrumbs": {
+    "products": "제품 선택",
+    "all_products": "모든 제품",
+    "basket": "장바구니",
+    "checkout": "주문 결제",
+    "orders": "주문",
+    "kor": "/박스"
+  },
+  "header": {
+    "catalog": "카탈로그",
+    "search_placeholder": "상품 검색",
+    "in_basketMobile": "장바구니",
+    "in_basket": "장바구니에",
+    "orders": "주문",
+    "site_title": "최고의 제품",
+    "work_schedule": "영업시간: 09:30-18:00 월-금",
+    "phone_number": "+82 10-5615-5694",
+    "top_desc": "제목 - 설명"
+  },
+  "success_checkout": {
+    "thank_you": "감사합니다",
+    "order_message": "주문 번호 {{orderId}}는 금액 {{amount}}으로 발송되었습니다",
+    "order_more": "다시 주문하기"
+  },
+  "footer": {
+    "success_message": "요청이 성공적으로 전송되었습니다.",
+    "sending": "보내는 중...",
+    "feedback_title": "피드백",
+    "feedback_description": "양식을 작성해 주시면 기꺼이 연락드리겠습니다. 저희 상담원이 모든 질문에 답변해 드립니다.",
+    "phone_placeholder": "전화번호",
+    "email_placeholder": "이메일",
+    "task_description": "귀하의 과제를 설명하십시오",
+    "message_placeholder": "메시지",
+    "send_button": "보내기",
+    "phone_title": "전화",
+    "phone_text": "+7 (928) 221-08-88",
+    "working_hours_title": "근무 시간",
+    "working_hours_text": "매일 오전 9시부터 오후 9시까지",
+    "email_title": "이메일",
+    "email_text": "info@gmail.com",
+    "address_title": "주소",
+    "address_text": "Lorem ipsum dolor sit amet consectetur. Vel dolor cursus faucibus diam eget ultricies."
+  },
+  "basket": {
+    "empty": "장바구니가 비어 있습니다",
+    "go_to_shop": "상점으로 이동",
+    "title": "장바구니",
+    "checkout_button": "주문하기",
+    "warning_text": "상품이 품절인 경우 주문의 비용 및 내용이 변경될 수 있습니다",
+    "order_info": "주문 정보",
+    "total": "합계",
+    "count": "1개 제품 1개 항목"
+  },
+  "basket_checkout": {
+    "title": "주문하기",
+    "comment_label": "세부 사항, 주소 또는 코멘트를 입력하세요",
+    "order_button": "주문하기",
+    "product_count": "상품",
+    "loading": "잠시만 기다려 주세요...",
+    "nothing_to_checkout": "결제할 항목이 없습니다"
+  },
+  "orders": {
+    "table": {
+      "number": "번호",
+      "time": "시간",
+      "client": "클라이언트",
+      "total": "합계",
+      "paid": "지불",
+      "shipped": "배송됨"
+    },
+    "pagination": {
+      "prev": ">",
+      "next": "<",
+      "first": ">>",
+      "last": "<<",
+      "of": "중"
+    },
+    "summary": {
+      "total": "합계",
+      "paid": "지불",
+      "shipped": "배송됨"
+    },
+    "order_details": {
+      "title": "주문 세부사항",
+      "number": "번호",
+      "time": "시간",
+      "client": "클라이언트",
+      "total": "합계",
+      "paid": "지불",
+      "shipped": "배송됨"
+    }
+  },
+  "in_basket": "장바구니에 추가",
+  "about_more": "자세히 알아보기",
+  "loading": "로딩 중..."
+}
