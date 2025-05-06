@@ -57,7 +57,8 @@
     "warning_text": "The cost and contents of the order may change if the item is out of stock",
     "order_info": "Order Information",
     "total": "Total",
-    "count": "1 item 1 position"
+    "count": "1 item 1 position",
+    "clear_button": "Clear basket"
   },
   "basket_checkout": {
     "title": "Checkout",

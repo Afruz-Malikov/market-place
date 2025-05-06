@@ -127,22 +127,24 @@ function Home() {
               <span>{getProductLabel(section.products.length)}</span>
             </Subtitle>
             <div className={style.wrapper}>
-              {section.products.slice(0, visibleCount).map((product) => (
-                <ProductCard
-                  key={product.product_id}
-                  id={product.product_id}
-                  price={Math.ceil(Number(product.price?.[0]?.p || 0) / 100)}
-                  seriesNumber={product.product_code}
-                  quantity={product.quantity}
-                  title={product.translate?.[i18n.language] || product.name}
-                  photo={product.ava}
-                  type={product.product_type}
-                  isEditable
-                  categoryId={section.id}
-                  categoryName={section.name}
-                  translation={product.translate}
-                />
-              ))}
+              {section.products.slice(0, visibleCount).map((product) => {
+                return (
+                  <ProductCard
+                    key={product.product_id}
+                    id={product.product_id}
+                    price={Math.ceil(Number(product.price?.[0]?.p || 0) / 100)}
+                    seriesNumber={product.product_code}
+                    quantity={product.quantity}
+                    title={product.translate?.[i18n.language] || product.name}
+                    photo={product.ava}
+                    type={product.product_type}
+                    isEditable
+                    categoryId={section.id}
+                    categoryName={section.name}
+                    translation={product.translate}
+                  />
+                );
+              })}
             </div>
             {visibleCount < section.products.length && (
               <LoaderTrigger onVisible={() => loadMore(section.id)} />

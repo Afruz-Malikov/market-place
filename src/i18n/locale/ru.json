@@ -55,6 +55,7 @@
     "order_info": "Информация о заказе",
     "total": "Итог",
     "go_to_shop": "Перейти в магазин",
+    "clear_button": "Очистить корзину",
     "count": "1 товар 1 позиция"
   },
   "basket_checkout": {

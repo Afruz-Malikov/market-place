@@ -91,6 +91,7 @@ function ProductCard({
     });
   };
   const addToBasket = (newQuantity) => {
+    console.log(translation);
     dispatch(
       addProductToBasket({
         product_id: id,

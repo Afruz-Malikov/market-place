@@ -55,7 +55,8 @@
     "warning_text": "상품이 품절인 경우 주문의 비용 및 내용이 변경될 수 있습니다",
     "order_info": "주문 정보",
     "total": "합계",
-    "count": "1개 제품 1개 항목"
+    "count": "1개 제품 1개 항목",
+    "clear_button": "장바구니 비우기"
   },
   "basket_checkout": {
     "title": "주문하기",

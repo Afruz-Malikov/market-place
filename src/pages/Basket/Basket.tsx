@@ -7,16 +7,20 @@ import Text from '../../components/UI/Text/Text';
 import Title from '../../components/UI/Title/Title';
 import style from './backet.module.scss';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { Category } from '../../types/Product';
 import { useMemo } from 'react';
+import { useChangeBasketMutation } from '../../store/services';
+import { setBasket } from '../../store/slices/basketSlice';
 
 function Basket() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
+  const [changeBasket] = useChangeBasketMutation();
   console.log(basketProducts);
   function getProductLabel(count: number): string {
     const lang = i18n.language;
@@ -142,7 +146,13 @@ function Basket() {
       </Container>
     );
   }
-
+  const handleClearBasket = async () => {
+    await changeBasket({ products: [] })
+      .unwrap()
+      .then((v) => console.log(v))
+      .catch((err) => console.error(err));
+    dispatch(setBasket([]));
+  };
   return (
     <Container styles={{ flexDirection: 'column', gap: 31 }}>
       <Title className={style.title}>{t('basket.title')}</Title>
@@ -150,6 +160,7 @@ function Basket() {
         <div className={style.productsWrapper}>
           <div className={style.wrapper}>
             {basketProducts.map((item, key) => {
+              console.log(item);
               if (!item) return null;
               return (
                 <ProductCard
@@ -184,6 +195,9 @@ function Basket() {
               <Link to="/basket/checkout">
                 <Button>{t('basket.checkout_button')}</Button>
               </Link>
+              <Button onClick={handleClearBasket} className={style.clearButton}>
+                {t('basket.clear_button')}
+              </Button>
               <Text className={style.warningText}>
                 {t('basket.warning_text')}
               </Text>
@@ -205,6 +219,9 @@ function Basket() {
             <Link to="/basket/checkout">
               <Button>{t('basket.checkout_button')}</Button>
             </Link>
+            <Button onClick={handleClearBasket} className={style.clearButton}>
+              {t('basket.clear_button')}
+            </Button>
             <div className={style.warningTextWrapper}>
               <Text className={style.warningText}>
                 {t('basket.warning_text')}

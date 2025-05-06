@@ -40,6 +40,7 @@
   justify-content: space-between;
   flex-direction: column;
   & button {
+    margin-top: 10px;
     width: 100%;
     justify-content: center;
     &:hover {
@@ -124,4 +125,9 @@
   width: 100%;
   background-color: #fff;
   position: relative;
+}
+.clearButton {
+  // margin-top: 10px;
+  background-color: #f5f5f5;
+  color: #333;
 }
