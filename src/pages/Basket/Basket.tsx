@@ -33,6 +33,60 @@ function Basket() {
   const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
 
+  function getProductLabel(count: number): string {
+    const lang = i18n.language;
+
+    if (lang === 'ru') {
+      const lastDigit = count % 10;
+      const lastTwoDigits = count % 100;
+
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+        return `${count} товаров`;
+      }
+
+      if (lastDigit === 1) return `${count} товар`;
+      if (lastDigit >= 2 && lastDigit <= 4) return `${count} товара`;
+
+      return `${count} товаров`;
+    }
+
+    if (lang === 'en') {
+      return `${count} product${count === 1 ? '' : 's'}`;
+    }
+
+    if (lang === 'kr') {
+      return `${count} 상품`;
+    }
+    return `${count} products`;
+  }
+  function getPositionLabel(count: number): string {
+    const lang = i18n.language;
+
+    if (lang === 'ru') {
+      const lastDigit = count % 10;
+      const lastTwoDigits = count % 100;
+
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+        return `${count} позиций`;
+      }
+
+      if (lastDigit === 1) return `${count} позиция`;
+      if (lastDigit >= 2 && lastDigit <= 4) return `${count} позиции`;
+
+      return `${count} позиций`;
+    }
+
+    if (lang === 'en') {
+      return `${count} position${count === 1 ? '' : 's'}`;
+    }
+
+    if (lang === 'kr') {
+      return `${count} 포지션`; // 또는 항목(항목 = 항목/아이템)
+    }
+
+    return `${count} positions`;
+  }
+
   const basketItemsDetailed = useMemo(() => {
     return basketProducts
       .map((basketItem) => {
@@ -119,7 +173,11 @@ function Basket() {
           <div className={style.productsSum}>
             <div>
               <Title className={style.productPrice}>{totalPrice} ₩/кор</Title>
-              <Text className={style.productCount}>{t('basket.count')}</Text>
+              <Text className={style.productCount}>
+                {' '}
+                {getProductLabel(basketProducts.length)}{' '}
+                {getPositionLabel(basketProducts.length)}
+              </Text>
             </div>
             <div>
               <Link to="/basket/checkout">
@@ -133,7 +191,11 @@ function Basket() {
           <div className={style.productSumMobile}>
             <Title>{t('basket.order_info')}</Title>
             <div className={style.lines}></div>
-            <div>{t('basket.count')}</div>
+            <div>
+              {' '}
+              {getProductLabel(basketProducts.length)}{' '}
+              {getPositionLabel(basketProducts.length)}
+            </div>
             <div className={style.lines}></div>
             <div className={style.result}>
               <span>{t('basket.total')}:</span>

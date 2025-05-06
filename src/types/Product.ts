@@ -28,6 +28,11 @@ export interface Category {
   pid: number;
   name: string;
   ms_id: string;
+  translate: {
+    kr: string;
+    en: string;
+    ru: string;
+  };
   products: Product[];
   children?: Category[];
 }
