@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styles from './NotFound.module.scss';
 import Button from '../../components/UI/Button/Button';
 import Text from '../../components/UI/Text/Text';
@@ -7,6 +8,7 @@ import Container from '../../components/UI/Container/Container';
 
 function NotFound() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleBackHome = () => {
     navigate('/');
@@ -14,12 +16,10 @@ function NotFound() {
 
   return (
     <Container className={styles.container}>
-      <Title className={styles.title}>Страница не найдена</Title>
-      <Text className={styles.message}>
-        Возможно, вы ввели неправильный адрес.
-      </Text>
+      <Title className={styles.title}>{t('not_found.title')}</Title>
+      <Text className={styles.message}>{t('not_found.message')}</Text>
       <Button onClick={handleBackHome} className={styles.button}>
-        На главную
+        {t('not_found.button')}
       </Button>
     </Container>
   );

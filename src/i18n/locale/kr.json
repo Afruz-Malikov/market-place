@@ -7,6 +7,11 @@
     "orders": "주문",
     "kor": "/박스"
   },
+  "not_found": {
+    "title": "페이지를 찾을 수 없습니다",
+    "message": "주소를 잘못 입력했을 수 있습니다.",
+    "button": "홈으로 이동"
+  },
   "header": {
     "catalog": "카탈로그",
     "search_placeholder": "상품 검색",

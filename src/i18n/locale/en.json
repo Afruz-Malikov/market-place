@@ -7,6 +7,12 @@
     "orders": "Orders",
     "kor": "/pack"
   },
+  "not_found": {
+    "title": "Page Not Found",
+    "message": "You may have entered an incorrect address.",
+    "button": "Go Home"
+  },
+
   "header": {
     "catalog": "Catalog",
     "search_placeholder": "Search products",
