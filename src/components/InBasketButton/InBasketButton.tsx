@@ -19,11 +19,13 @@ function InBasketButton({
   id,
   isEditable,
   categoryId,
+  addToBasket,
 }: {
   productQuantity: number;
   isEditable?: boolean;
   id: number;
   categoryId: number;
+  addToBasket: (newQuantity: number) => void;
 }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -42,32 +44,40 @@ function InBasketButton({
   );
 
   useEffect(() => {
-    const currentProduct = basket.find((item) => Number(item.id) === id);
-    const newQuantity = Number(currentProduct?.quantity) || 0;
+    const currentProduct = basket.find(
+      (item) => Number(item.product_id) === id,
+    );
+    const inCartQuantity = Number(currentProduct?.quantity_in_cart) || 0;
+
+    let newQuantity = 0;
+
+    if (inCartQuantity > 0 && productQuantity === 0) {
+      // Продукт есть в корзине, но на складе закончился — показываем 1
+      newQuantity = 1;
+    } else if (productQuantity > 0 && inCartQuantity > productQuantity) {
+      newQuantity = productQuantity;
+    } else {
+      newQuantity = inCartQuantity;
+    }
+
     if (newQuantity !== quantity) {
       setQuantity(newQuantity);
     }
-  }, [id, basket]);
+  }, [id, basket, productQuantity]);
 
   const updateQuantity = (newQuantity: number) => {
     setQuantity(newQuantity);
 
     if (newQuantity > 0) {
-      dispatch(
-        addProductToBasket({
-          id: id,
-          quantity: newQuantity.toString(),
-          cat_id: categoryId,
-        }),
-      );
+      addToBasket(newQuantity);
     } else {
       dispatch(removeProductFromBasket({ id: id }));
     }
 
     const updatedBasket = basket
       .map((item) => ({
-        id: item.id.toString(),
-        quantity: item.quantity,
+        id: item.product_id.toString(),
+        quantity: item.quantity_in_cart,
       }))
       .filter((item) => Number(item.id) !== id)
       .concat({ id: id.toString(), quantity: newQuantity.toString() })
@@ -84,7 +94,9 @@ function InBasketButton({
 
   return (
     <div onClick={stopPropagation}>
-      {quantity === 0 ? (
+      {productQuantity === 0 && quantity === 0 ? (
+        <div className={style.outOfStock}>{t('out_of_stock')}</div>
+      ) : quantity === 0 ? (
         <Button onClick={handleAdd} className={style.addButton}>
           <BasketIcon /> {t('in_basket')}
         </Button>
@@ -92,11 +104,19 @@ function InBasketButton({
         <div className={style.counter}>
           {isEditable ? (
             <>
-              <button onClick={handleDecrement} className={style.counterButton}>
+              <button
+                onClick={handleDecrement}
+                className={style.counterButton}
+                disabled={productQuantity === 0}
+              >
                 <MinusIcon />
               </button>
               <span className={style.quantity}>{quantity}</span>
-              <button onClick={handleIncrement} className={style.counterButton}>
+              <button
+                onClick={handleIncrement}
+                className={style.counterButton}
+                disabled={quantity >= productQuantity}
+              >
                 <PlusIcon />
               </button>
             </>

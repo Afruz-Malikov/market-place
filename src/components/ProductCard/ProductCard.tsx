@@ -7,7 +7,10 @@ import InBasketButton from '../InBasketButton/InBasketButton';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { removeProductFromBasket } from '../../store/slices/basketSlice';
+import {
+  addProductToBasket,
+  removeProductFromBasket,
+} from '../../store/slices/basketSlice';
 import { openProductModal } from '../../store/slices/modalSlice';
 import { useChangeBasketMutation } from '../../store/services';
 import { useTranslation } from 'react-i18next';
@@ -41,11 +44,12 @@ function ProductCard({
   categoryId,
   subCategoryName,
   isEditable,
+  translation,
 }: ProductCardProps) {
   const dispatch = useDispatch();
   const { basket } = useSelector((state: RootState) => state.basket);
   const [changeBasket] = useChangeBasketMutation();
-  const { t, i18n } = useTranslation(); // Получаем t и i18n для текущего языка
+  const { t, i18n } = useTranslation();
 
   const handleClick = () => {
     dispatch(
@@ -68,8 +72,8 @@ function ProductCard({
     dispatch(removeProductFromBasket({ id: id }));
     const updatedBasket = basket
       .map((item) => ({
-        id: item.id.toString(),
-        quantity: item.quantity,
+        id: item.product_id.toString(),
+        quantity: item.quantity_in_cart,
       }))
       .filter((item) => Number(item.id) !== id);
     changeBasket({ products: updatedBasket })
@@ -80,11 +84,40 @@ function ProductCard({
       });
   };
 
-  // Форматирование цены в зависимости от текущего языка
   const formatPrice = (value: number) => {
     return value.toLocaleString(i18n.language, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
+    });
+  };
+  const addToBasket = (newQuantity) => {
+    dispatch(
+      addProductToBasket({
+        product_id: id,
+        price: price,
+        product_code: seriesNumber,
+        quantity: quantity,
+        name: title,
+        quantity_in_cart: newQuantity,
+        product_type: type,
+        translate: translation,
+        ava: photo,
+        cat_name: categoryName,
+        cat_id: categoryId,
+      }),
+    );
+    console.log({
+      product_id: id,
+      price: price,
+      product_code: seriesNumber,
+      quantity: quantity,
+      name: title,
+      quantity_in_cart: newQuantity,
+      product_type: type,
+      translate: translation,
+      ava: photo,
+      cat_name: categoryName,
+      cat_id: categoryId,
     });
   };
 
@@ -101,7 +134,8 @@ function ProductCard({
               <Text className={style.badge}>{t("product.new_badge")}</Text>
             )} */}
             <Subtitle className={style.title}>
-              {title} ({quantity} {t('product.units')})
+              {title} ({quantity}
+              {t('units')})
             </Subtitle>
             {type === 'bundle' && title && <Text>{seriesNumber}</Text>}
           </div>
@@ -138,6 +172,7 @@ function ProductCard({
                 isEditable={isEditable}
                 productQuantity={Number(quantity)}
                 categoryId={categoryId}
+                addToBasket={addToBasket}
               />
             </div>
           </div>
@@ -147,6 +182,7 @@ function ProductCard({
             isEditable={isEditable}
             productQuantity={Number(quantity)}
             categoryId={categoryId}
+            addToBasket={addToBasket}
           />
         )}
       </div>

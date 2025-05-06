@@ -22,44 +22,44 @@ function BasketCheckout() {
   const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
   const [createOrder] = useCreateOrderMutation();
-  const findCategoryById = (
-    categories: Category[],
-    id: number,
-  ): Category | null => {
-    for (const category of categories) {
-      // console.log(category);
-      if (category.id === id) return category;
-      if (category.children) {
-        const found = findCategoryById(category.children, id);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
-  const basketItemsDetailed = basketProducts
-    .map((basketItem) => {
-      const category = findCategoryById(products, basketItem.cat_id);
-      if (!category) return null;
-      const product = category.products.find(
-        (p) => p.product_id === basketItem.id,
-      );
-      if (!product) return null;
-      return {
-        id: product.product_id,
-        type: product.product_type,
-        quantity: Number(basketItem.quantity),
-        title:
-          i18n.language in ['kr', 'en', 'ru'] &&
-          product.translate[i18n.language as 'kr' | 'en' | 'ru']
-            ? product.translate[i18n.language as 'kr' | 'en' | 'ru']
-            : product.name,
-        price: Math.ceil(Number(product.price?.[0]?.p || 0) / 100),
-        code: product.product_code,
-        categoryId: category.id,
-        categoryName: category.name,
-      };
-    })
-    .filter(Boolean);
+  // const findCategoryById = (
+  //   categories: Category[],
+  //   id: number,
+  // ): Category | null => {
+  //   for (const category of categories) {
+  //     // console.log(category);
+  //     if (category.id === id) return category;
+  //     if (category.children) {
+  //       const found = findCategoryById(category.children, id);
+  //       if (found) return found;
+  //     }
+  //   }
+  //   return null;
+  // };
+  // const basketItemsDetailed = basketProducts
+  //   .map((basketItem) => {
+  //     const category = findCategoryById(products, basketItem.cat_id);
+  //     if (!category) return null;
+  //     const product = category.products.find(
+  //       (p) => p.product_id === basketItem.id,
+  //     );
+  //     if (!product) return null;
+  //     return {
+  //       id: product.product_id,
+  //       type: product.product_type,
+  //       quantity: Number(basketItem.quantity),
+  //       title:
+  //         i18n.language in ['kr', 'en', 'ru'] &&
+  //         product.translate[i18n.language as 'kr' | 'en' | 'ru']
+  //           ? product.translate[i18n.language as 'kr' | 'en' | 'ru']
+  //           : product.name,
+  //       price: Math.ceil(Number(product.price?.[0]?.p || 0) / 100),
+  //       code: product.product_code,
+  //       categoryId: category.id,
+  //       categoryName: category.name,
+  //     };
+  //   })
+  //   .filter(Boolean);
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -67,14 +67,15 @@ function BasketCheckout() {
       setIsLoading(true);
 
       const formattedBasket = basketProducts.map((item) => ({
-        id: item.id.toString(),
-        quantity: item.quantity,
+        id: item.product_id.toString(),
+        quantity: item.quantity_in_cart,
       }));
       await createOrder({
         products: formattedBasket,
       }).unwrap();
-      const totalPrice = basketItemsDetailed.reduce(
-        (acc, item) => acc + Number(item?.price) * Number(item?.quantity),
+      const totalPrice = basketProducts.reduce(
+        (acc, item) =>
+          acc + Number(item?.price) * Number(item?.quantity_in_cart),
         0,
       );
       dispatch(setBasket([]));
@@ -88,7 +89,7 @@ function BasketCheckout() {
     }
   };
 
-  if (basketItemsDetailed.length === 0) {
+  if (basketProducts.length === 0) {
     return (
       <Container styles={{ flexDirection: 'column', gap: 20 }}>
         <Title>{t('basket_checkout.nothing_to_checkout')}</Title>
@@ -116,28 +117,22 @@ function BasketCheckout() {
             </Button>
           </form>
           <div className={style.products}>
-            {basketItemsDetailed.map((item, index) => {
+            {basketProducts.map((item, key) => {
               if (!item) return null;
               return (
-                <div key={index}>
-                  <Subtitle className={style.categoryTitle}>
-                    {item.categoryName}{' '}
-                  </Subtitle>
-                  <div className={style.productsWrapper}>
-                    <ProductCard
-                      key={item.id}
-                      type={item.type}
-                      id={item.id}
-                      price={item.price}
-                      seriesNumber={item.code}
-                      quantity={item.quantity.toString()}
-                      title={item.title}
-                      categoryId={item.categoryId}
-                      categoryName={item.categoryName}
-                      isEditable={false}
-                    />
-                  </div>
-                </div>
+                <ProductCard
+                  key={item.product_id}
+                  id={item.product_id}
+                  price={item.price}
+                  seriesNumber={item.product_code}
+                  quantity={item.quantity}
+                  title={item.translate?.[i18n.language] || item.name}
+                  photo={item.ava}
+                  type={item.product_type}
+                  categoryId={item.cat_id}
+                  categoryName={item.cat_name}
+                  isBasketCard
+                />
               );
             })}
           </div>

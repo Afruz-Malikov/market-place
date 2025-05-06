@@ -17,7 +17,7 @@ import { setBasket } from '../../store/slices/basketSlice';
 import { RootState } from '../../store/store';
 import { useEffect } from 'react';
 import { setFolders } from '../../store/slices/folderSlice';
-import AdvertisingModal from '../AdvertisingModal/AdvertisingModal';
+// import AdvertisingModal from '../AdvertisingModal/AdvertisingModal';
 import SuccessCheckoutModal from '../SuccessCheckoutModal/SuccessCheckoutModal';
 import { openAdvertisingModal } from '../../store/slices/modalSlice';
 import { useTranslation } from 'react-i18next';
@@ -66,13 +66,18 @@ function Layout() {
   }, [newProductsData, isNewProductsLoading, dispatch]);
   useEffect(() => {
     if (!isBasketLoading && userBasketData?.folders?.length) {
-      const formattedBasket = userBasketData.folders.flatMap((folder) =>
-        folder.products.map((product) => ({
-          cat_id: folder.id,
-          id: Number(product.id),
-          quantity: product.quantity,
-        })),
-      );
+      const formattedBasket = userBasketData.folders
+        .flatMap((folder) =>
+          folder.products.map((product) => {
+            return {
+              cat_name: folder.name,
+              cat_id: folder.id,
+              ...product,
+              price: Math.ceil(product.price && product.price[1].p / 100),
+            };
+          }),
+        )
+        .filter((item) => item.cat_id !== 0);
       dispatch(setBasket(formattedBasket));
     }
   }, [userBasketData, isBasketLoading, dispatch]);

@@ -96,7 +96,9 @@
       "shipped": "배송됨"
     }
   },
+  "units": "개",
   "in_basket": "장바구니에 추가",
   "about_more": "자세히 알아보기",
-  "loading": "로딩 중..."
+  "loading": "로딩 중...",
+  "out_of_stock": "재고 없음"
 }

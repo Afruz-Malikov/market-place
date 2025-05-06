@@ -1,20 +1,20 @@
-import Container from "../../components/UI/Container/Container";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import Subtitle from "../../components/UI/Subtitle/Subtitle";
-import style from "./home.module.scss";
-import ProductModal from "../../components/ProductModal/ProductModal";
-import { useEffect, useState, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { Category } from "../../types/Product";
-import { RootState } from "../../store/store";
-import LoaderTrigger from "../../components/LoaderTrigger/LoaderTrigger";
-import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import Container from '../../components/UI/Container/Container';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import Subtitle from '../../components/UI/Subtitle/Subtitle';
+import style from './home.module.scss';
+import ProductModal from '../../components/ProductModal/ProductModal';
+import { useEffect, useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { Category } from '../../types/Product';
+import { RootState } from '../../store/store';
+import LoaderTrigger from '../../components/LoaderTrigger/LoaderTrigger';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Home() {
   const { i18n } = useTranslation();
   const { products, searchFilterResult, isLoading } = useSelector(
-    (state: RootState) => state.products
+    (state: RootState) => state.products,
   );
   const { categoryId, subCategoryId } = useParams();
   const [visibleCountBySection, setVisibleCountBySection] = useState<
@@ -23,15 +23,15 @@ function Home() {
   const [visibleSectionCount, setVisibleSectionCount] = useState(1);
 
   useEffect(() => {
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
   }, []);
 
   function getProductLabel(count: number): string {
     const lang = i18n.language;
 
-    if (lang === "ru") {
+    if (lang === 'ru') {
       const lastDigit = count % 10;
       const lastTwoDigits = count % 100;
 
@@ -45,11 +45,11 @@ function Home() {
       return `${count} товаров`;
     }
 
-    if (lang === "en") {
-      return `${count} product${count === 1 ? "" : "s"}`;
+    if (lang === 'en') {
+      return `${count} product${count === 1 ? '' : 's'}`;
     }
 
-    if (lang === "kr") {
+    if (lang === 'kr') {
       return `${count} 상품`;
     }
     return `${count} products`;
@@ -81,15 +81,15 @@ function Home() {
 
     if (categoryId && subCategoryId) {
       const category = products[1].children.find(
-        (c) => String(c.id) === categoryId
+        (c) => String(c.id) === categoryId,
       );
       const sub = category?.children?.find(
-        (c) => String(c.id) === subCategoryId
+        (c) => String(c.id) === subCategoryId,
       );
       return sub ? [sub] : [];
     } else if (categoryId) {
       const category = products[1].children.find(
-        (c) => String(c.id) === categoryId
+        (c) => String(c.id) === categoryId,
       );
       return category ? [category] : [];
     }
@@ -106,24 +106,24 @@ function Home() {
         {hasProducts && (
           <Container
             styles={
-              section.name === "Новые товары"
+              section.name === 'Новые товары'
                 ? {
-                    width: "93.5vw",
-                    margin: "0 auto",
-                    paddingTop: "50px",
-                    paddingBottom: "50px",
-                    backgroundColor: "#eef2f9",
+                    width: '93.5vw',
+                    margin: '0 auto',
+                    paddingTop: '50px',
+                    paddingBottom: '50px',
+                    backgroundColor: '#eef2f9',
                     borderRadius: 30,
-                    flexDirection: "column",
+                    flexDirection: 'column',
                     paddingRight: 30,
                     paddingLeft: 30,
                     marginBottom: 40,
                   }
-                : { flexDirection: "column" }
+                : { flexDirection: 'column' }
             }
           >
-            <Subtitle fontSize="23px" className={style["card-title"]}>
-              {section.translate?.[i18n.language] || section.name}{" "}
+            <Subtitle fontSize="23px" className={style['card-title']}>
+              {section.translate?.[i18n.language] || section.name}{' '}
               <span>{getProductLabel(section.products.length)}</span>
             </Subtitle>
             <div className={style.wrapper}>
@@ -140,6 +140,7 @@ function Home() {
                   isEditable
                   categoryId={section.id}
                   categoryName={section.name}
+                  translation={product.translate}
                 />
               ))}
             </div>

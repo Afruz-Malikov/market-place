@@ -98,7 +98,9 @@
       "shipped": "Shipped"
     }
   },
+  "units": "pcs",
   "loading": "Loading...",
   "in_basket": "In basket",
-  "about_more": "Learn more"
+  "about_more": "Learn more",
+  "out_of_stock": "Out of stock"
 }

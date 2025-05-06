@@ -23,11 +23,11 @@ export const basketSlice = createSlice({
       }>,
     ) {
       const index = state.basket.findIndex(
-        (item) => item.id === action.payload.id,
+        (item) => item.product_id === action.payload.product_id,
       );
-
+      console.log(index);
       if (index >= 0) {
-        state.basket[index].quantity = action.payload.quantity;
+        state.basket[index].quantity_in_cart = action.payload.quantity_in_cart;
       } else {
         state.basket.push(action.payload);
       }
@@ -38,7 +38,7 @@ export const basketSlice = createSlice({
     },
     removeProductFromBasket(state, action: PayloadAction<{ id: number }>) {
       state.basket = state.basket.filter(
-        (item) => item.id !== action.payload.id,
+        (item) => item.product_id !== action.payload.id,
       );
     },
   },

@@ -15,24 +15,9 @@ import { useMemo } from 'react';
 function Basket() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
-  // Рекурсивный поиск категории по имени
-  const findCategoryById = (
-    categories: Category[],
-    id: number,
-  ): Category | null => {
-    for (const category of categories) {
-      // console.log(category);
-      if (category.id === id) return category;
-      if (category.children) {
-        const found = findCategoryById(category.children, id);
-        if (found) return found;
-      }
-    }
-    return null;
-  };
-
   const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
+  console.log(basketProducts);
   function getProductLabel(count: number): string {
     const lang = i18n.language;
 
@@ -86,60 +71,68 @@ function Basket() {
 
     return `${count} positions`;
   }
-  console.log(basketProducts);
-  const basketItemsDetailed = useMemo(() => {
-    return basketProducts
-      .map((basketItem) => {
-        const category = findCategoryById(products, basketItem.cat_id);
-        if (!category) return null;
-        const product = category.products.find((p) => {
-          console.log(
-            category.name,
-            p.product_id,
-            basketItem.id,
-            p.product_id === basketItem.id,
-          );
+  const findCategoryById = (
+    categories: Category[],
+    id: number,
+  ): Category | null => {
+    for (const category of categories) {
+      if (category.id === id) {
+        return category;
+      }
+      if (category.children) {
+        const found = findCategoryById(category.children, id);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+  // console.log(basketProducts);
+  // const basketItemsDetailed = useMemo(() => {
+  //   return basketProducts
+  //     .map((basketItem) => {
+  //       const category = findCategoryById(products, basketItem.cat_id);
+  //       if (!category) return null;
+  //       const product = category.products.find((p) => {
+  //         return p.product_id === basketItem.id;
+  //       });
+  //       if (!product) return null;
 
-          return p.product_id === basketItem.id;
-        });
-        if (!product) return null;
-
-        return {
-          id: product.product_id,
-          type: product.product_type,
-          quantity: Number(product.quantity),
-          quantityInBasket: basketItem.quantity,
-          title:
-            i18n.language in ['kr', 'en', 'ru'] &&
-            product.translate[i18n.language as 'kr' | 'en' | 'ru']
-              ? product.translate[i18n.language as 'kr' | 'en' | 'ru']
-              : product.name,
-          price: Math.ceil(Number(product.price?.[0]?.p || 0) / 100),
-          code: product.product_code,
-          categoryId: category.id,
-          categoryName: category.name,
-        };
-      })
-      .filter(Boolean);
-  }, [basketProducts, products, i18n.language]);
+  //       return {
+  //         id: product.product_id,
+  //         type: product.product_type,
+  //         quantity: Number(product.quantity),
+  //         quantityInBasket: basketItem.quantity,
+  //         title:
+  //           i18n.language in ['kr', 'en', 'ru'] &&
+  //           product.translate[i18n.language as 'kr' | 'en' | 'ru']
+  //             ? product.translate[i18n.language as 'kr' | 'en' | 'ru']
+  //             : product.name,
+  //         price: Math.ceil(Number(product.price?.[0]?.p || 0) / 100),
+  //         code: product.product_code,
+  //         categoryId: category.id,
+  //         categoryName: category.name,
+  //       };
+  //     })
+  //     .filter(Boolean);
+  // }, [basketProducts, products, i18n.language]);
   const totalPrice = useMemo(() => {
-    return basketItemsDetailed
+    return basketProducts
       .reduce(
         (acc, item) =>
-          acc + Number(item?.price) * Number(item?.quantityInBasket),
+          acc + Number(item?.price) * Number(item?.quantity_in_cart),
         0,
       )
       .toLocaleString('ru-RU', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-  }, [basketItemsDetailed]);
+  }, [basketProducts]);
 
   if (location.pathname.includes('checkout')) {
     return <Outlet />;
   }
 
-  if (basketItemsDetailed.length === 0) {
+  if (basketProducts.length === 0) {
     return (
       <Container styles={{ flexDirection: 'column', gap: 20 }}>
         <Title>{t('basket.empty')}</Title>
@@ -156,21 +149,22 @@ function Basket() {
       <div className={style.products}>
         <div className={style.productsWrapper}>
           <div className={style.wrapper}>
-            {basketItemsDetailed.map((item, key) => {
+            {basketProducts.map((item, key) => {
               if (!item) return null;
               return (
                 <ProductCard
-                  key={key}
-                  type={item.type}
-                  id={Number(item.id)}
+                  key={item.product_id}
+                  id={item.product_id}
                   price={item.price}
-                  seriesNumber={item.code}
-                  quantity={item.quantity.toString()}
-                  title={item.title}
-                  categoryId={item.categoryId}
-                  categoryName={item.categoryName}
-                  isBasketCard
+                  seriesNumber={item.product_code}
+                  quantity={item.quantity}
+                  title={item.translate?.[i18n.language] || item.name}
+                  photo={item.ava}
+                  type={item.product_type}
+                  categoryId={item.cat_id}
+                  categoryName={item.cat_name}
                   isEditable
+                  isBasketCard
                 />
               );
             })}
