@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import styles from './NotFound.module.scss';
+import styles from './notfound.module.scss';
 import Button from '../../components/UI/Button/Button';
 import Text from '../../components/UI/Text/Text';
 import Title from '../../components/UI/Title/Title';
