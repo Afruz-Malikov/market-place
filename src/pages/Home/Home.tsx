@@ -10,13 +10,14 @@ import { RootState } from '../../store/store';
 import LoaderTrigger from '../../components/LoaderTrigger/LoaderTrigger';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Language } from '../../types/Basket';
 
 function Home() {
   const { i18n } = useTranslation();
   const { products, searchFilterResult, isLoading } = useSelector(
     (state: RootState) => state.products,
   );
-  const shop = useSelector((state) => state.shop.shop);
+  const shop = useSelector((state: RootState) => state.shop.shop);
   console.log(shop);
   const { categoryId, subCategoryId } = useParams();
   const [visibleCountBySection, setVisibleCountBySection] = useState<
@@ -133,7 +134,7 @@ function Home() {
             }
           >
             <Subtitle fontSize="23px" className={style['card-title']}>
-              {section.translate?.[i18n.language] || section.name}{' '}
+              {section.translate?.[i18n.language as Language] || section.name}{' '}
               <span>{getProductLabel(section.products.length)}</span>
             </Subtitle>
             <div className={style.wrapper}>
@@ -148,7 +149,10 @@ function Home() {
                     price={Math.ceil(Number(currentPrice?.p || 0) / 100)}
                     seriesNumber={product.product_code}
                     quantity={product.quantity}
-                    title={product.translate?.[i18n.language] || product.name}
+                    title={
+                      product.translate?.[i18n.language as Language] ||
+                      product.name
+                    }
                     photo={product.ava}
                     type={product.product_type}
                     isEditable
@@ -164,7 +168,8 @@ function Home() {
             )}
           </Container>
         )}
-        {section.children?.length > 0 && section.children.map(renderSection)}
+        {(section.children?.length || 0) > 0 &&
+          section.children?.map(renderSection)}
       </div>
     );
   };

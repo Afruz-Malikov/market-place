@@ -7,10 +7,7 @@ import Button from '../UI/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-import {
-  addProductToBasket,
-  removeProductFromBasket,
-} from '../../store/slices/basketSlice';
+import { removeProductFromBasket } from '../../store/slices/basketSlice';
 import { useChangeBasketMutation } from '../../store/services';
 import { throttle } from 'lodash';
 
@@ -18,7 +15,6 @@ function InBasketButton({
   productQuantity,
   id,
   isEditable,
-  categoryId,
   addToBasket,
 }: {
   productQuantity: number;
@@ -30,14 +26,18 @@ function InBasketButton({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { basket } = useSelector((state: RootState) => state.basket);
-  const shopId = useSelector((state: RootState) => state.shop.shop.id);
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id);
   const [quantity, setQuantity] = useState(0);
-  const [changeBasket] = useChangeBasketMutation(shopId);
+  const [changeBasket] = useChangeBasketMutation();
 
   const throttledSyncBasketRef = useRef(
     throttle(async (updatedBasket: { id: string; quantity: string }[]) => {
       try {
-        await changeBasket({ products: updatedBasket }).unwrap();
+        if (!shopId) return;
+        await changeBasket({
+          products: updatedBasket,
+          shopId,
+        }).unwrap();
       } catch (error) {
         console.error('Ошибка при обновлении корзины:', error);
       }

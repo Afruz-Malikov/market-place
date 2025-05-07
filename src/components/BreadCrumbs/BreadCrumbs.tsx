@@ -23,7 +23,6 @@ function Breadcrumbs() {
       return breadcrumb ? { breadcrumb, pathname: match.pathname } : null;
     })
     .filter(Boolean);
-  console.log(crumbs);
   if (crumbs.length <= 1) return null;
 
   return (

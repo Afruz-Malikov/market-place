@@ -1,4 +1,3 @@
-import { Link, useNavigate } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Button from '../../components/UI/Button/Button';
 import Container from '../../components/UI/Container/Container';
@@ -15,56 +14,30 @@ import { setBasket } from '../../store/slices/basketSlice';
 import { useCreateOrderMutation } from '../../store/services';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
 import { useCustomNavigate } from '../../components/CustomNavigate/CustomNavigate';
+import { Language } from '../../types/Basket';
 // import { Category } from '../../types/Product';
 
 function BasketCheckout() {
   const navigate = useCustomNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  // const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
-  const shopId = useSelector((state: RootState) => state.shop.shop.id);
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id);
 
   const [createOrder] = useCreateOrderMutation();
-  // const findCategoryById = (
-  //   categories: Category[],
-  //   id: number,
-  // ): Category | null => {
-  //   for (const category of categories) {
-  //     // console.log(category);
-  //     if (category.id === id) return category;
-  //     if (category.children) {
-  //       const found = findCategoryById(category.children, id);
-  //       if (found) return found;
-  //     }
-  //   }
-  //   return null;
-  // };
-  // const basketItemsDetailed = basketProducts
-  //   .map((basketItem) => {
-  //     const category = findCategoryById(products, basketItem.cat_id);
-  //     if (!category) return null;
-  //     const product = category.products.find(
-  //       (p) => p.product_id === basketItem.id,
-  //     );
-  //     if (!product) return null;
-  //     return {
-  //       id: product.product_id,
-  //       type: product.product_type,
-  //       quantity: Number(basketItem.quantity),
-  //       title:
-  //         i18n.language in ['kr', 'en', 'ru'] &&
-  //         product.translate[i18n.language as 'kr' | 'en' | 'ru']
-  //           ? product.translate[i18n.language as 'kr' | 'en' | 'ru']
-  //           : product.name,
-  //       price: Math.ceil(Number(product.price?.[0]?.p || 0) / 100),
-  //       code: product.product_code,
-  //       categoryId: category.id,
-  //       categoryName: category.name,
-  //     };
-  //   })
-  //   .filter(Boolean);
   const [isLoading, setIsLoading] = useState(false);
+  if (basketProducts.length === 0) {
+    return (
+      <Container styles={{ flexDirection: 'column', gap: 20 }}>
+        <Title>{t('basket_checkout.nothing_to_checkout')}</Title>
+
+        <CustomLink to="/">
+          <Button>{t('basket.go_to_shop')}</Button>
+        </CustomLink>
+      </Container>
+    );
+  }
+  if (!shopId) return;
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
@@ -93,18 +66,6 @@ function BasketCheckout() {
     }
   };
 
-  if (basketProducts.length === 0) {
-    return (
-      <Container styles={{ flexDirection: 'column', gap: 20 }}>
-        <Title>{t('basket_checkout.nothing_to_checkout')}</Title>
-
-        <CustomLink to="/">
-          <Button>{t('basket.go_to_shop')}</Button>
-        </CustomLink>
-      </Container>
-    );
-  }
-
   return (
     <>
       <Container styles={{ flexDirection: 'column', gap: 31 }}>
@@ -122,7 +83,7 @@ function BasketCheckout() {
             </Button>
           </form>
           <div className={style.products}>
-            {basketProducts.map((item, key) => {
+            {basketProducts.map((item) => {
               if (!item) return null;
               return (
                 <ProductCard
@@ -131,10 +92,12 @@ function BasketCheckout() {
                   price={item.price}
                   seriesNumber={item.product_code}
                   quantity={item.quantity}
-                  title={item.translate?.[i18n.language] || item.name}
+                  title={
+                    item.translate?.[i18n.language as Language] || item.name
+                  }
                   photo={item.ava}
                   type={item.product_type}
-                  categoryId={item.cat_id}
+                  categoryId={item.categ_id}
                   categoryName={item.cat_name}
                   isBasketCard
                 />

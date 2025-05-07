@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Button from '../../components/UI/Button/Button';
 import Container from '../../components/UI/Container/Container';
@@ -14,13 +14,14 @@ import { useMemo } from 'react';
 import { useChangeBasketMutation } from '../../store/services';
 import { setBasket } from '../../store/slices/basketSlice';
 import { CustomLink } from '../../components/CustomLink/CustomLink';
+import { Language } from '../../types/Basket';
 
 function Basket() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
-  const shopId = useSelector((state: RootState) => state.shop.shop.id);
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id);
   const [changeBasket] = useChangeBasketMutation();
   function getProductLabel(count: number): string {
     const lang = i18n.language;
@@ -52,8 +53,7 @@ function Basket() {
     }
 
     if (lang === 'vi') {
-      // Вьетнамский
-      return `${count} sản phẩm`; // "sản phẩm" - продукт
+      return `${count} sản phẩm`;
     }
     return `${count} products`;
   }
@@ -108,6 +108,7 @@ function Basket() {
     return null;
   };
   const totalPrice = useMemo(() => {
+    console.log(basketProducts);
     return basketProducts
       .reduce(
         (acc, item) =>
@@ -134,20 +135,24 @@ function Basket() {
       </Container>
     );
   }
+  if (!shopId) {
+    return;
+  }
   const handleClearBasket = async () => {
-    await changeBasket({ products: [], shopId })
+    await changeBasket({ products: [], shopId: shopId })
       .unwrap()
       .then((v) => console.log(v))
       .catch((err) => console.error(err));
     dispatch(setBasket([]));
   };
+
   return (
     <Container styles={{ flexDirection: 'column', gap: 31 }}>
       <Title className={style.title}>{t('basket.title')}</Title>
       <div className={style.products}>
         <div className={style.productsWrapper}>
           <div className={style.wrapper}>
-            {basketProducts.map((item, key) => {
+            {basketProducts.map((item) => {
               if (!item) return null;
               return (
                 <ProductCard
@@ -156,10 +161,12 @@ function Basket() {
                   price={item.price}
                   seriesNumber={item.product_code}
                   quantity={item.quantity}
-                  title={item.translate?.[i18n.language] || item.name}
+                  title={
+                    item.translate?.[i18n.language as Language] || item.name
+                  }
                   photo={item.ava}
                   type={item.product_type}
-                  categoryId={item.cat_id}
+                  categoryId={item.categ_id}
                   categoryName={item.cat_name}
                   isEditable
                   isBasketCard

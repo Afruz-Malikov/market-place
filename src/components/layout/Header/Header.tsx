@@ -16,7 +16,7 @@ import CloseIcon from '../../../assets/svg/close.svg?react';
 import Select from '../../UI/Select/Select';
 import React, { useCallback, useEffect, useState } from 'react';
 import CatalogMenu from '../../CatalogModal/CatalogModal';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../BreadCrumbs/BreadCrumbs';
 import clsx from 'clsx';
 import { debounce } from 'lodash';
@@ -55,6 +55,7 @@ function Header() {
     (state: RootState) => state.products.searchFilterResult,
   );
   const { basket } = useSelector((state: RootState) => state.basket);
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id!);
   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isBurgerModalOpen, setIsBurgerModalOpen] = useState(false);
@@ -83,9 +84,9 @@ function Header() {
   }, [searchValue, debouncedSearch]);
 
   const { data: searchData, isFetching } = useSearchProductsQuery(
-    delayedSearchValue,
+    { searchTerm: delayedSearchValue, shopId },
     {
-      skip: delayedSearchValue.length <= 1,
+      skip: delayedSearchValue.length <= 1 || !shopId,
     },
   );
 

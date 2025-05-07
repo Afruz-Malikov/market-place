@@ -29,7 +29,7 @@ interface FeedbackValidationError {
 
 function Footer() {
   const { t } = useTranslation();
-  const shopId = useSelector((state: RootState) => state.shop.shop.id);
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id);
   const [createFeedback] = useCreateFeedbackMutation();
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -39,8 +39,8 @@ function Footer() {
   const [errorFields, setErrorFields] = useState<
     Partial<FeedbackValidationError['messages']>
   >({});
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (!shopId) return;
     e.preventDefault();
     setIsLoading(true);
     setErrorFields({});
@@ -77,7 +77,6 @@ function Footer() {
       return () => clearTimeout(timer);
     }
   }, [isSuccess]);
-
   return (
     <footer className={style.footer}>
       <Container

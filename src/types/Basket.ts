@@ -1,3 +1,5 @@
+import { ProductPrice } from './Product';
+export type Language = 'ru' | 'en' | 'kr' | 'uz' | 'vi';
 export interface ChangeBasketProduct {
   id: string;
   quantity: string;
@@ -17,25 +19,18 @@ export interface BasketFolder {
 }
 
 export interface BasketProduct {
+  price: ProductPrice[];
   id: string;
+  name: string;
+  updated: string;
+  product_type: 'product' | 'bundle';
+  categ_id: number;
   quantity: string;
+  product_code: string;
+  uom: string;
+  ava?: string;
+  bundle: number;
+  translate: Partial<Record<Language, string>>;
+  product_id: number;
+  quantity_in_cart: string;
 }
-
-// export interface BasketProductDetails {
-//   id?: string;
-//   name: string;
-//   updated: string;
-//   product_code: string;
-//   product_type: string;
-//   categ_id: number;
-//   price: PriceItem[];
-//   uom: string;
-//   count_in_pc: string;
-//   product_id: number;
-//   quantity: string;
-// }
-
-// export interface PriceItem {
-//   id: string;
-//   p: string;
-// }

@@ -7,9 +7,9 @@ import BackArrowIcon from '../../assets/svg/arrow_back.svg?react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { Folder } from '../../types/Categories';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CustomLink } from '../CustomLink/CustomLink';
+import { Language } from '../../types/Basket';
 
 interface CatalogModalMobileProps {
   isOpen?: boolean;
@@ -62,8 +62,8 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                         onClick={onClose}
                       >
                         <span>
-                          {category.translate?.[i18n.language]
-                            ? category.translate[i18n.language]
+                          {category.translate?.[i18n.language as Language]
+                            ? category.translate[i18n.language as Language]
                             : category.name}
                         </span>
                       </CustomLink>
@@ -81,8 +81,8 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                       </span>
 
                       <span>
-                        {category.translate?.[i18n.language]
-                          ? category.translate[i18n.language]
+                        {category.translate?.[i18n.language as Language]
+                          ? category.translate[i18n.language as Language]
                           : category.name}{' '}
                       </span>
                       <span
@@ -114,8 +114,8 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                               to={`/catalog/${subCat.pid}/${subCat.id}`}
                               onClick={onClose}
                             >
-                              {subCat.translate?.[i18n.language]
-                                ? subCat.translate[i18n.language]
+                              {subCat.translate?.[i18n.language as Language]
+                                ? subCat.translate[i18n.language as Language]
                                 : subCat.name}{' '}
                               <span className={style.subCount}>
                                 ({subCat.product_count})

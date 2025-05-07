@@ -1,5 +1,6 @@
 // store/slices/modalsSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Language } from '../../types/Basket';
 
 interface ModalsState {
   isProductModalOpen: boolean;
@@ -13,6 +14,8 @@ interface ModalsState {
     categ_id: number;
     sub_categ_name?: string;
     images: string[];
+    type: 'bundle' | 'product';
+    translate: Partial<Record<Language, string>>;
   } | null;
   AdvertisingModalData: {
     img: string;
@@ -53,6 +56,8 @@ export const modalsSlice = createSlice({
         categ_id: number;
         productQuantity: string;
         images: string[];
+        type: 'bundle' | 'product';
+        translate: Partial<Record<Language, string>>;
       }>,
     ) {
       state.isProductModalOpen = true;

@@ -10,6 +10,8 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Category } from '../types/Product';
 import NotFound from '../pages/NotFound/NotFound';
+import { Language } from '../types/Basket';
+import { Folder } from '../types/Categories';
 
 function getTotalProductCount(categories: Category[]): number {
   let total = 0;
@@ -49,10 +51,9 @@ const BreadcrumbsRouteHandler = ({
 const CategoryBreadcrumb = ({
   category,
   subCategory,
-  categoryId,
 }: {
-  category?: Category;
-  subCategory?: Category;
+  category?: Folder;
+  subCategory?: Folder;
   categoryId?: string;
 }) => {
   const { i18n } = useTranslation();
@@ -66,7 +67,7 @@ const CategoryBreadcrumb = ({
             style={{ color: 'black', fontWeight: 400 }}
             to={`/category/${category.id}`}
           >
-            {category.translate?.[i18n.language] || category.name}
+            {category.translate?.[i18n.language as Language] || category.name}
           </Link>
           {' > '}
         </>
@@ -75,14 +76,15 @@ const CategoryBreadcrumb = ({
         <span
           className={clsx(breadCrumbsStyle.breadcrumb, breadCrumbsStyle.active)}
         >
-          {subCategory.translate?.[i18n.language] || subCategory.name}
+          {subCategory.translate?.[i18n.language as Language] ||
+            subCategory.name}
         </span>
       )}
     </>
   );
 };
 
-const SingleCategoryBreadcrumb = ({ category }: { category?: Category }) => {
+const SingleCategoryBreadcrumb = ({ category }: { category?: Folder }) => {
   const { i18n } = useTranslation();
 
   return (
@@ -91,7 +93,7 @@ const SingleCategoryBreadcrumb = ({ category }: { category?: Category }) => {
         <span
           className={clsx(breadCrumbsStyle.breadcrumb, breadCrumbsStyle.active)}
         >
-          {category.translate?.[i18n.language] || category.name}
+          {category.translate?.[i18n.language as Language] || category.name}
         </span>
       )}
     </>
@@ -127,7 +129,11 @@ export const routes = createBrowserRouter([
         path: 'catalog/:categoryId/:subCategoryId',
         element: <Home />,
         handle: {
-          breadcrumb: ({ params }) => {
+          breadcrumb: ({
+            params,
+          }: {
+            params: { categoryId: string; subCategoryId: string };
+          }) => {
             const state = store.getState();
             const folder = state.folders.folder;
 
@@ -154,7 +160,7 @@ export const routes = createBrowserRouter([
         path: 'category/:categoryId',
         element: <Home />,
         handle: {
-          breadcrumb: ({ params }) => {
+          breadcrumb: ({ params }: { params: { categoryId: string } }) => {
             const state = store.getState();
             const folder = state.folders.folder;
             if (!folder[1]?.children) return null;

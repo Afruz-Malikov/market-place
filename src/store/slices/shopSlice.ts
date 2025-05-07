@@ -1,12 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-const initialState = {
-  shop: {},
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Shop } from '../../types/Shop';
+interface ShopSliceInitialProps {
+  shop: Shop | null;
+}
+const initialState: ShopSliceInitialProps = {
+  shop: null,
 };
 export const shopSlice = createSlice({
   name: 'shop',
   initialState,
   reducers: {
-    setShopData(state, action) {
+    setShopData(state, action: PayloadAction<Shop>) {
       state.shop = action.payload;
     },
   },

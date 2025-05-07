@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useTranslation } from 'react-i18next';
 import { CustomLink } from '../CustomLink/CustomLink';
+import { Language } from '../../types/Basket';
 interface CatalogMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -76,15 +77,15 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                             onClick={onClose}
                           >
                             <span>
-                              {category.translate?.[i18n.language]
-                                ? category.translate[i18n.language]
+                              {category.translate?.[i18n.language as Language]
+                                ? category.translate[i18n.language as Language]
                                 : category.name}
                             </span>
                           </CustomLink>
                         ) : (
                           <span>
-                            {category.translate?.[i18n.language]
-                              ? category.translate[i18n.language]
+                            {category.translate?.[i18n.language as Language]
+                              ? category.translate[i18n.language as Language]
                               : category.name}
                           </span>
                         )}
@@ -100,8 +101,12 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                       <div className={style.subCategoryHeader}>
                         <Title>
                           {' '}
-                          {selectedCategory.translate?.[i18n.language]
-                            ? selectedCategory.translate[i18n.language]
+                          {selectedCategory.translate?.[
+                            i18n.language as Language
+                          ]
+                            ? selectedCategory.translate[
+                                i18n.language as Language
+                              ]
                             : selectedCategory.name}
                         </Title>
                         <span>{selectedCategory.product_count} Товаров</span>
@@ -119,8 +124,10 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                                 onClick={onClose}
                               >
                                 <span>
-                                  {subCat.translate?.[i18n.language]
-                                    ? subCat.translate[i18n.language]
+                                  {subCat.translate?.[i18n.language as Language]
+                                    ? subCat.translate[
+                                        i18n.language as Language
+                                      ]
                                     : subCat.name}
                                 </span>
                                 <span>({subCat.product_count})</span>

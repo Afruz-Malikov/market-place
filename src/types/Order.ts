@@ -1,13 +1,11 @@
+import { Language } from './Basket';
+
 export interface Order {
   id: string;
   time: string;
   agent: string;
   sum: number;
   paid: number;
-  translate: {
-    kr: string;
-    en: string;
-    ru: string;
-  };
+  translate: Partial<Record<Language, string>>;
   shipped: number;
 }

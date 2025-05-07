@@ -14,6 +14,7 @@ import {
 import { openProductModal } from '../../store/slices/modalSlice';
 import { useChangeBasketMutation } from '../../store/services';
 import { useTranslation } from 'react-i18next';
+import { Language } from '../../types/Basket';
 
 interface ProductCardProps {
   title: string;
@@ -28,6 +29,7 @@ interface ProductCardProps {
   categoryId: number;
   subCategoryName?: string;
   type: 'bundle' | 'product';
+  translation?: Partial<Record<Language, string>>;
   onClick?: () => void;
 }
 
@@ -48,29 +50,13 @@ function ProductCard({
 }: ProductCardProps) {
   const dispatch = useDispatch();
   const { basket } = useSelector((state: RootState) => state.basket);
-  const shopId = useSelector((state: RootState) => state.shop.shop.id);
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id);
 
-  const [changeBasket] = useChangeBasketMutation(shopId);
+  const [changeBasket] = useChangeBasketMutation();
   const { t, i18n } = useTranslation();
-
-  const handleClick = () => {
-    dispatch(
-      openProductModal({
-        productQuantity: quantity,
-        id: id,
-        categ_id: categoryId,
-        title,
-        code: seriesNumber,
-        price,
-        categ_name: categoryName,
-        sub_categ_name: subCategoryName || '',
-        images: [photo || NoFoto],
-      }),
-    );
-  };
-
   const handleDeleteProduct = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (!shopId) return;
     dispatch(removeProductFromBasket({ id: id }));
     const updatedBasket = basket
       .map((item) => ({
@@ -78,7 +64,7 @@ function ProductCard({
         quantity: item.quantity_in_cart,
       }))
       .filter((item) => Number(item.id) !== id);
-    changeBasket({ products: updatedBasket })
+    changeBasket({ products: updatedBasket, shopId })
       .unwrap()
       .then((v) => console.log(v))
       .catch((error) => {
@@ -92,8 +78,7 @@ function ProductCard({
       maximumFractionDigits: 2,
     });
   };
-  const addToBasket = (newQuantity) => {
-    console.log(translation);
+  const addToBasket = (newQuantity: number) => {
     dispatch(
       addProductToBasket({
         product_id: id,
@@ -101,29 +86,32 @@ function ProductCard({
         product_code: seriesNumber,
         quantity: quantity,
         name: title,
-        quantity_in_cart: newQuantity,
+        quantity_in_cart: newQuantity.toString(),
         product_type: type,
-        translate: translation,
+        translate: translation || {},
         ava: photo,
         cat_name: categoryName,
-        cat_id: categoryId,
+        categ_id: categoryId,
       }),
     );
-    console.log({
-      product_id: id,
-      price: price,
-      product_code: seriesNumber,
-      quantity: quantity,
-      name: title,
-      quantity_in_cart: newQuantity,
-      product_type: type,
-      translate: translation,
-      ava: photo,
-      cat_name: categoryName,
-      cat_id: categoryId,
-    });
   };
-
+  const handleClick = () => {
+    dispatch(
+      openProductModal({
+        productQuantity: quantity,
+        id: id,
+        categ_id: categoryId,
+        title,
+        code: seriesNumber,
+        price,
+        categ_name: categoryName,
+        sub_categ_name: subCategoryName || '',
+        images: [photo || NoFoto],
+        type: type,
+        translate: translation || {},
+      }),
+    );
+  };
   return (
     <div
       className={clsx(style.card, isBasketCard && style.basketCard)}

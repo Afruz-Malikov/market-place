@@ -83,26 +83,40 @@ function Layout() {
   }, [newProductsData, isNewProductsLoading, dispatch]);
 
   useEffect(() => {
-    if (!isBasketLoading && userBasketData?.folders?.length) {
+    if (
+      !isBasketLoading &&
+      userBasketData?.folders?.length &&
+      ShopInfo?.shop.counterparty_info.pricetype
+    ) {
       const formattedBasket = userBasketData.folders
         .flatMap((folder) =>
-          folder.products.map((product) => ({
-            cat_name: folder.name,
-            cat_id: folder.id,
-            ...product,
-            price: Math.ceil(product.price && product.price[1].p / 100),
-          })),
+          folder.products.map((product) => {
+            const currentPrice = product.price.find(
+              (item) => item.id === ShopInfo?.shop.counterparty_info.pricetype,
+            );
+            return {
+              cat_name: folder.name,
+              cat_id: folder.id.toString(),
+              ...product,
+              price: Math.ceil(Number(currentPrice?.p) || 0 / 100),
+            };
+          }),
         )
-        .filter((item) => item.cat_id !== 0);
+        .filter((item) => Number(item.cat_id) !== 0);
       dispatch(setBasket(formattedBasket));
     }
-  }, [userBasketData, isBasketLoading, dispatch]);
+  }, [
+    userBasketData,
+    isBasketLoading,
+    ShopInfo?.shop.counterparty_info.pricetype,
+    dispatch,
+  ]);
 
   useEffect(() => {
     if (!isFoldersLoading && foldersData?.folders.length) {
       dispatch(setFolders(foldersData.folders));
     }
-  }, [foldersData, isFoldersLoading, dispatch]);
+  }, [foldersData, isFoldersLoading, ShopInfo?.shop.id, dispatch]);
 
   useEffect(() => {
     if (

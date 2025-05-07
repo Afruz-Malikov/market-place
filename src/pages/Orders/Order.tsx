@@ -7,14 +7,18 @@ import { useGetUserOrdersQuery } from '../../store/services';
 import spinStyle from '../../components/LoaderTrigger/loadertrigger.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { Language } from '../../types/Basket';
 function Order() {
   const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
   const shopId = useSelector((state: RootState) => state.shop.shop?.id);
-  const { data: transactions, isLoading } = useGetUserOrdersQuery(shopId, {
-    skip: !shopId,
-  });
+  const { data: transactions, isLoading } = useGetUserOrdersQuery(
+    shopId || '',
+    {
+      skip: !shopId,
+    },
+  );
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -80,7 +84,8 @@ function Order() {
               </td>
               <td className={style.agentRow}>
                 {' '}
-                {transaction.translate?.[i18n.language] || transaction.name}
+                {transaction.translate?.[i18n.language as Language] ||
+                  transaction.agent}
               </td>
               <td className={style.value}>
                 {transaction.sum.toFixed(2)}
@@ -139,7 +144,8 @@ function Order() {
 
             <span className={style.agentRow}>
               {' '}
-              {transaction.translate?.[i18n.language] || transaction.name}
+              {transaction.translate?.[i18n.language as Language] ||
+                transaction.agent}
             </span>
           </div>
 

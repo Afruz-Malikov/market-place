@@ -1,3 +1,5 @@
+import { Language } from './Basket';
+
 export interface ProductPrice {
   id: string;
   p: string;
@@ -16,11 +18,7 @@ export interface Product {
   product_id: number;
   quantity: string;
   ava?: string;
-  translate: {
-    kr: string;
-    en: string;
-    ru: string;
-  };
+  translate: Partial<Record<Language, string>>;
 }
 
 export interface Category {
@@ -28,11 +26,7 @@ export interface Category {
   pid: number;
   name: string;
   ms_id: string;
-  translate: {
-    kr: string;
-    en: string;
-    ru: string;
-  };
+  translate: Partial<Record<Language, string>>;
   products: Product[];
   children?: Category[];
 }

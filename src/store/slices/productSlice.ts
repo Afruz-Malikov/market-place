@@ -4,12 +4,14 @@ interface OrderState {
   products: Category[];
   searchFilterResult: Category[] | [] | null;
   isSearching: boolean;
+  isLoading: boolean;
 }
 
 const initialState: OrderState = {
   products: [],
   searchFilterResult: null,
   isSearching: false,
+  isLoading: false,
 };
 
 export const productSlice = createSlice({
