@@ -1,6 +1,12 @@
 .wrapper {
   position: relative;
   width: 100%;
+  // min-width: 100px;
+  // overflow: hidden;
+  @media (max-width: 999px) {
+    // width: 42px;
+    height: 42px;
+  }
 }
 
 .select {
@@ -16,15 +22,27 @@
   justify-content: space-between;
   cursor: pointer;
   transition: 0.3s ease;
-
+  overflow: hidden;
   &:hover {
     background-color: #e2e8f0;
   }
+  @media (max-width: 999px) {
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+  }
 }
-
+.selectedOption {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 .arrow {
   transition: 0.3s ease;
   fill: var(--color-blue);
+  @media (max-width: 999px) {
+    display: none;
+  }
 }
 
 .open {
@@ -34,8 +52,11 @@
 .options {
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border: 1px solid #d1d5db;
   border-radius: 12px;
@@ -43,16 +64,44 @@
   overflow-y: auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 999px) {
+    width: 130%;
+  }
 }
 
 .option {
   padding: 12px 16px;
   font-size: 16px;
   color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   cursor: pointer;
   transition: background-color 0.2s ease;
-
   &:hover {
     background-color: #f0f0f0;
+  }
+  & span {
+    width: 50%;
+  }
+  @media (max-width: 999px) {
+    padding: 11px 10px;
+  }
+}
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & svg {
+    // margin-left: px;
+    border-radius: 20px;
+    width: 19px;
+    height: 19px;
   }
 }

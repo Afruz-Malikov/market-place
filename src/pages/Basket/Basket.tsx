@@ -18,10 +18,8 @@ function Basket() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
-  const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
   const [changeBasket] = useChangeBasketMutation();
-  console.log(basketProducts);
   function getProductLabel(count: number): string {
     const lang = i18n.language;
 
@@ -46,8 +44,18 @@ function Basket() {
     if (lang === 'kr') {
       return `${count} 상품`;
     }
+
+    if (lang === 'uz') {
+      return `${count} mahsulot`;
+    }
+
+    if (lang === 'vi') {
+      // Вьетнамский
+      return `${count} sản phẩm`; // "sản phẩm" - продукт
+    }
     return `${count} products`;
   }
+
   function getPositionLabel(count: number): string {
     const lang = i18n.language;
 
@@ -70,9 +78,16 @@ function Basket() {
     }
 
     if (lang === 'kr') {
-      return `${count} 포지션`; // 또는 항목(항목 = 항목/아이템)
+      return `${count} 포지션`;
     }
 
+    if (lang === 'uz') {
+      return `${count} o'rin`;
+    }
+
+    if (lang === 'vi') {
+      return `${count} vị trí`;
+    }
     return `${count} positions`;
   }
   const findCategoryById = (
@@ -90,35 +105,6 @@ function Basket() {
     }
     return null;
   };
-  // console.log(basketProducts);
-  // const basketItemsDetailed = useMemo(() => {
-  //   return basketProducts
-  //     .map((basketItem) => {
-  //       const category = findCategoryById(products, basketItem.cat_id);
-  //       if (!category) return null;
-  //       const product = category.products.find((p) => {
-  //         return p.product_id === basketItem.id;
-  //       });
-  //       if (!product) return null;
-
-  //       return {
-  //         id: product.product_id,
-  //         type: product.product_type,
-  //         quantity: Number(product.quantity),
-  //         quantityInBasket: basketItem.quantity,
-  //         title:
-  //           i18n.language in ['kr', 'en', 'ru'] &&
-  //           product.translate[i18n.language as 'kr' | 'en' | 'ru']
-  //             ? product.translate[i18n.language as 'kr' | 'en' | 'ru']
-  //             : product.name,
-  //         price: Math.ceil(Number(product.price?.[0]?.p || 0) / 100),
-  //         code: product.product_code,
-  //         categoryId: category.id,
-  //         categoryName: category.name,
-  //       };
-  //     })
-  //     .filter(Boolean);
-  // }, [basketProducts, products, i18n.language]);
   const totalPrice = useMemo(() => {
     return basketProducts
       .reduce(

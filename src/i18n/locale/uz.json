@@ -1,0 +1,105 @@
+{
+  "breadcrumbs": {
+    "products": "Mahsulot tanlash",
+    "all_products": "Barcha mahsulotlar",
+    "basket": "Savat",
+    "checkout": "Buyurtma berish",
+    "orders": "Buyurtmalar",
+    "kor": "/кор"
+  },
+  "not_found": {
+    "title": "Sahifa topilmadi",
+    "message": "Ehtimol, siz noto‘g‘ri manzil kiritdingiz.",
+    "button": "Bosh sahifaga"
+  },
+  "header": {
+    "catalog": "Katalog",
+    "search_placeholder": "Mahsulot qidirish",
+    "in_basketMobile": "Savat",
+    "in_basket": "Savatda",
+    "orders": "Buyurtmalar",
+    "site_title": "Eng Yaxshi Mahsulotlar",
+    "work_schedule": "Ish vaqti: Du-Ju 09:30-18:00",
+    "phone_number": "+82 10-5615-5694",
+    "top_desc": "NOMI - tavsif"
+  },
+  "success_checkout": {
+    "thank_you": "Rahmat",
+    "order_message": "Sizning №{{orderId}} buyurtmangiz, {{amount}} summasiga yuborildi",
+    "order_more": "Yana buyurtma berish"
+  },
+  "footer": {
+    "sending": "Yuborilmoqda...",
+    "success_message": "So‘rovingiz muvaffaqiyatli yuborildi.",
+    "feedback_title": "Aloqa",
+    "feedback_description": "Formani to‘ldiring va biz siz bilan bog‘lanamiz. Maslahatchimiz barcha savollaringizga javob beradi.",
+    "phone_placeholder": "Telefon raqami",
+    "email_placeholder": "E-mail",
+    "task_description": "Vazifangizni tavsiflang",
+    "message_placeholder": "Xabar",
+    "send_button": "Yuborish",
+    "phone_title": "Telefon",
+    "phone_text": "+7 (928) 221-08-88",
+    "working_hours_title": "Buyurtma vaqti",
+    "working_hours_text": "Har kuni 03:00 dan 23:59 gacha",
+    "email_title": "E-mail",
+    "email_text": "info@gmail.com",
+    "address_title": "Manzil",
+    "address_text": "Lorem ipsum dolor sit amet consectetur. Vel dolor cursus faucibus diam eget ultricies."
+  },
+  "basket": {
+    "title": "Savat",
+    "empty": "Savatingiz bo‘sh",
+    "checkout_button": "Buyurtma berish",
+    "warning_text": "Agar mahsulot qolmagan bo‘lsa, narx va tarkib o‘zgarishi mumkin",
+    "order_info": "Buyurtma haqida ma’lumot",
+    "total": "Jami",
+    "go_to_shop": "Do‘konga o‘tish",
+    "clear_button": "Savatni tozalash",
+    "count": "1 mahsulot 1 pozitsiya"
+  },
+  "basket_checkout": {
+    "title": "Buyurtma berish",
+    "comment_label": "Ma’lumot, manzil yoki izoh kiriting",
+    "order_button": "Buyurtma berish",
+    "product_count": "Mahsulotlar",
+    "loading": "Iltimos, kuting...",
+    "nothing_to_checkout": "Buyurtma qilish uchun hech narsa yo‘q"
+  },
+  "orders": {
+    "table": {
+      "number": "№",
+      "time": "Vaqt",
+      "client": "Kontragent",
+      "total": "Jami",
+      "paid": "To‘langan",
+      "shipped": "Yuborilgan"
+    },
+    "pagination": {
+      "prev": ">",
+      "next": "<",
+      "first": ">>",
+      "last": "<<",
+      "of": "dan"
+    },
+    "summary": {
+      "total": "Jami",
+      "paid": "To‘langan",
+      "shipped": "Yuborilgan"
+    },
+    "order_details": {
+      "title": "Buyurtma tafsilotlari",
+      "number": "№",
+      "time": "Vaqt",
+      "client": "Kontragent",
+      "total": "Jami",
+      "paid": "To‘langan",
+      "shipped": "Yuborilgan"
+    }
+  },
+  "units": "dona",
+  "loading": "Yuklanmoqda...",
+  "in_basket": "Savatga qo‘shish",
+  "about_more": "Batafsil ma’lumot",
+  "out_of_stock": "Mahsulot tugagan"
+}

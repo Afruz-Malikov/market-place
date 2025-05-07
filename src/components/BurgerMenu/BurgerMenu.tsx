@@ -22,9 +22,11 @@ interface SelectOption {
   value: string;
 }
 const languageOptions = [
-  { value: 'ru', label: 'Ру' },
+  { value: 'ru', label: 'Ru' },
   { value: 'kr', label: 'Kr' },
   { value: 'en', label: 'En' },
+  { value: 'vi', label: 'Vi' },
+  { value: 'uz', label: 'Uz' },
 ];
 function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
   const { t, i18n } = useTranslation();

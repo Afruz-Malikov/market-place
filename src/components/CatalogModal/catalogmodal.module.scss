@@ -2,7 +2,6 @@
   position: absolute;
   width: 100vw;
   height: 70vh;
-  top: 90px;
   z-index: 2;
   transform: translateX(-200%);
   transition: transform 0.3s ease-in;
@@ -28,7 +27,6 @@
   flex: 0 0 300px;
   max-height: 70vh;
   overflow: auto;
-
 }
 
 .mainCategoryItem {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Select.module.scss';
 
 import clsx from 'clsx';
@@ -6,6 +6,8 @@ import clsx from 'clsx';
 interface SelectOption {
   label: string;
   value: string;
+
+  icon?: React.ReactNode;
 }
 
 interface SelectProps {
@@ -34,7 +36,12 @@ function CustomSelect({
   return (
     <div className={clsx(styles.wrapper, className)}>
       <div className={styles.select} onClick={() => setIsOpen((prev) => !prev)}>
-        <span>{selected ? selected.label : placeholder}</span>
+        <span className={styles.selectedOption}>
+          {selected ? selected.label : placeholder}
+          {/* {selected?.icon && (
+            <span className={styles.icon}>{selected.icon}</span>
+          )} */}
+        </span>
         <svg
           className={`${styles.arrow} ${isOpen ? styles.open : ''}`}
           width="20"
@@ -53,7 +60,10 @@ function CustomSelect({
               onClick={() => handleOptionClick(option)}
               className={styles.option}
             >
-              {option.label}
+              <span>{option.label}</span>
+              {option.icon && (
+                <span className={styles.icon}>{option.icon}</span>
+              )}
             </li>
           ))}
         </ul>

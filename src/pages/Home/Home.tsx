@@ -52,6 +52,14 @@ function Home() {
     if (lang === 'kr') {
       return `${count} 상품`;
     }
+
+    if (lang === 'uz') {
+      return `${count} mahsulot`;
+    }
+
+    if (lang === 'vi') {
+      return `${count} sản phẩm`;
+    }
     return `${count} products`;
   }
 

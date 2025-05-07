@@ -7,9 +7,14 @@ import Input from '../../UI/Input/Input';
 import CatalogIcon from '../../../assets/svg/catalog.svg?react';
 import SearchIcon from '../../../assets/svg/search.svg?react';
 import BasketIcon from '../../../assets/svg/basket.svg?react';
+import KrFlagIcon from '../../../assets/svg/kr_flag.svg?react';
+import EnFlagIcon from '../../../assets/svg/en_flag.svg?react';
+import RuFlagIcon from '../../../assets/svg/ru_flag.svg?react';
+import ViFlagIcon from '../../../assets/svg/vi_flag.svg?react';
+import UzFlagIcon from '../../../assets/svg/uz_flag.svg?react';
 import CloseIcon from '../../../assets/svg/close.svg?react';
 import Select from '../../UI/Select/Select';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CatalogMenu from '../../CatalogModal/CatalogModal';
 import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../BreadCrumbs/BreadCrumbs';
@@ -28,12 +33,15 @@ import { useSearchProductsQuery } from '../../../store/services';
 interface SelectOption {
   label: string;
   value: string;
+  icon?: React.ReactNode;
 }
 
 const languageOptions = [
-  { value: 'ru', label: 'Ру' },
-  { value: 'kr', label: 'Kr' },
-  { value: 'en', label: 'En' },
+  { value: 'ru', label: 'Ru', icon: <RuFlagIcon /> },
+  { value: 'kr', label: 'Kr', icon: <KrFlagIcon /> },
+  { value: 'en', label: 'En', icon: <EnFlagIcon /> },
+  { value: 'vi', label: 'Vi', icon: <ViFlagIcon /> },
+  { value: 'uz', label: 'Uz', icon: <UzFlagIcon /> },
 ];
 
 function Header() {
@@ -244,8 +252,12 @@ function Header() {
               </Button>
             </Link>
 
-            <Link to="/orders" onClick={() => setIsCatalogOpen(false)}>
-              <Button className={style.orderButton}>
+            <Link
+              to="/orders"
+              onClick={() => setIsCatalogOpen(false)}
+              className={style.orderButton}
+            >
+              <Button>
                 <span>{t('header.orders')}</span>
               </Button>
             </Link>

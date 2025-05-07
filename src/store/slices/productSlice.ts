@@ -27,6 +27,8 @@ export const productSlice = createSlice({
           ru: 'Новые товары',
           en: 'New Products',
           kr: '신상품',
+          vi: 'Sản phẩm mới',
+          uz: 'Yangi mahsulotlar',
         },
       };
       state.products = state.products.filter(
