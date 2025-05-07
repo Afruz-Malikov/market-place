@@ -1,17 +1,18 @@
-import clsx from "clsx";
-import Container from "../UI/Container/Container";
-import style from "./catalogmodal.module.scss";
-import Title from "../UI/Title/Title";
-import { useEffect, useState } from "react";
+import clsx from 'clsx';
+import Container from '../UI/Container/Container';
+import style from './catalogmodal.module.scss';
+import Title from '../UI/Title/Title';
+import { useEffect, useState } from 'react';
 // import AlcoholIcon from '../../assets/svg/alcochol.svg?react';
 // import BakaleyaIcon from '../../assets/svg/bakaleya.svg?react';
 // import BreadIcon from '../../assets/svg/bread.svg?react';
 // import ChildCategoryIcon from '../../assets/svg/child_category.svg?react';
 // import BreakfastIcon from '../../assets/svg/breakfast.svg?react';
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { CustomLink } from '../CustomLink/CustomLink';
 interface CatalogMenuProps {
   isOpen: boolean;
   onClose: () => void;
@@ -20,19 +21,19 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
   const { i18n } = useTranslation();
   const { folder } = useSelector((state: RootState) => state.folders);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null
+    null,
   );
 
   const mainCategories = folder[1]?.children ?? [];
 
   const selectedCategory = mainCategories.find(
-    (cat) => cat.id === selectedCategoryId
+    (cat) => cat.id === selectedCategoryId,
   );
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -56,28 +57,31 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                         className={clsx(
                           style.mainCategoryItem,
                           category.id === selectedCategoryId &&
-                            style.activeCategory
+                            style.activeCategory,
                         )}
                         onClick={() =>
                           !category.children
-                            ? onClose()
+                            ? null
                             : setSelectedCategoryId(category.id)
                         }
                         tabIndex={0}
                         onKeyDown={(e) => {
-                          if (e.key === "Enter") {
+                          if (e.key === 'Enter') {
                             setSelectedCategoryId(category.id);
                           }
                         }}
                       >
                         {!category.children ? (
-                          <Link to={`/category/${category.id}`}>
+                          <CustomLink
+                            to={`/category/${category.id}`}
+                            onClick={onClose}
+                          >
                             <span>
                               {category.translate?.[i18n.language]
                                 ? category.translate[i18n.language]
                                 : category.name}
                             </span>
-                          </Link>
+                          </CustomLink>
                         ) : (
                           <span>
                             {category.translate?.[i18n.language]
@@ -96,7 +100,7 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                     <div className={style.subCategories}>
                       <div className={style.subCategoryHeader}>
                         <Title>
-                          {" "}
+                          {' '}
                           {selectedCategory.translate?.[i18n.language]
                             ? selectedCategory.translate[i18n.language]
                             : selectedCategory.name}
@@ -110,9 +114,8 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                             <li
                               key={subCat.id}
                               className={style.subCategoryItem}
-                              onClick={onClose}
                             >
-                              <Link
+                              <CustomLink
                                 to={`/catalog/${subCat.pid}/${subCat.id}`}
                                 onClick={onClose}
                               >
@@ -122,7 +125,7 @@ function CatalogMenu({ isOpen, onClose }: CatalogMenuProps) {
                                     : subCat.name}
                                 </span>
                                 <span>({subCat.product_count})</span>
-                              </Link>
+                              </CustomLink>
                             </li>
                           );
                         })}

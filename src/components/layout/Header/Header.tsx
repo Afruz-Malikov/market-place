@@ -29,6 +29,7 @@ import {
   setIsSearching,
 } from '../../../store/slices/productSlice';
 import { useSearchProductsQuery } from '../../../store/services';
+import { CustomLink } from '../../CustomLink/CustomLink';
 
 interface SelectOption {
   label: string;
@@ -122,7 +123,7 @@ function Header() {
         <Container
           styles={{ justifyContent: 'space-between', alignItems: 'center' }}
         >
-          <Link
+          <CustomLink
             to="/"
             onClick={() => {
               if (searchValue.length > 0) {
@@ -134,7 +135,7 @@ function Header() {
             <Text color="#B8C0DA" styles={{ fontSize: 15 }}>
               {t('header.top_desc')}
             </Text>
-          </Link>
+          </CustomLink>
           <div className={style['header-top-desc']}>
             <Text styles={{ fontSize: 12 }} color="#B8C0DA">
               {t('header.work_schedule')}
@@ -168,7 +169,7 @@ function Header() {
               <span></span>
               <span></span>
             </div>
-            <Link
+            <CustomLink
               to="/"
               onClick={() => {
                 if (searchValue.length > 0) {
@@ -178,7 +179,7 @@ function Header() {
               }}
             >
               <Title>{t('header.site_title')}</Title>
-            </Link>
+            </CustomLink>
           </div>
 
           <div className={style['header-nav-search-wrapper']}>
@@ -230,7 +231,7 @@ function Header() {
             >
               <SearchIcon />
             </button>
-            <Link
+            <CustomLink
               to="/basket"
               style={{
                 display: 'flex',
@@ -250,9 +251,9 @@ function Header() {
                 </span>
                 <span className={style.count}>{basketProductsQuantity}</span>
               </Button>
-            </Link>
+            </CustomLink>
 
-            <Link
+            <CustomLink
               to="/orders"
               onClick={() => setIsCatalogOpen(false)}
               className={style.orderButton}
@@ -260,7 +261,7 @@ function Header() {
               <Button>
                 <span>{t('header.orders')}</span>
               </Button>
-            </Link>
+            </CustomLink>
 
             <div className={style['header-nav-language']}>
               <Select

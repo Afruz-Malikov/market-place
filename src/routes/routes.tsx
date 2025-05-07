@@ -100,6 +100,7 @@ const SingleCategoryBreadcrumb = ({ category }: { category?: Category }) => {
 
 export const routes = createBrowserRouter([
   {
+    path: '/shop/:shopId',
     element: <Layout />,
     handle: {
       breadcrumb: <BreadcrumbsRouteHandler breadcrumbKey="products" />,
@@ -123,14 +124,10 @@ export const routes = createBrowserRouter([
         },
       },
       {
-        path: '/catalog/:categoryId/:subCategoryId',
+        path: 'catalog/:categoryId/:subCategoryId',
         element: <Home />,
         handle: {
-          breadcrumb: ({
-            params,
-          }: {
-            params: { categoryId?: string; subCategoryId?: string };
-          }) => {
+          breadcrumb: ({ params }) => {
             const state = store.getState();
             const folder = state.folders.folder;
 
@@ -139,7 +136,6 @@ export const routes = createBrowserRouter([
             const category = folder[1].children.find(
               (c) => String(c.id) === params.categoryId,
             );
-
             const subCategory = category?.children?.find(
               (s) => String(s.id) === params.subCategoryId,
             );
@@ -155,13 +151,12 @@ export const routes = createBrowserRouter([
         },
       },
       {
-        path: '/category/:categoryId',
+        path: 'category/:categoryId',
         element: <Home />,
         handle: {
-          breadcrumb: ({ params }: { params: { categoryId?: string } }) => {
+          breadcrumb: ({ params }) => {
             const state = store.getState();
             const folder = state.folders.folder;
-
             if (!folder[1]?.children) return null;
 
             const category = folder[1].children.find(
@@ -173,14 +168,14 @@ export const routes = createBrowserRouter([
         },
       },
       {
-        path: '/basket',
+        path: 'basket',
         element: <Basket />,
         handle: {
           breadcrumb: <BreadcrumbsRouteHandler breadcrumbKey="basket" />,
         },
         children: [
           {
-            path: '/basket/checkout',
+            path: 'checkout',
             element: <BasketCheckout />,
             handle: {
               breadcrumb: <BreadcrumbsRouteHandler breadcrumbKey="checkout" />,
@@ -189,7 +184,7 @@ export const routes = createBrowserRouter([
         ],
       },
       {
-        path: '/orders',
+        path: 'orders',
         element: <Order />,
         handle: {
           breadcrumb: <BreadcrumbsRouteHandler breadcrumbKey="orders" />,
@@ -200,5 +195,9 @@ export const routes = createBrowserRouter([
         element: <NotFound />,
       },
     ],
+  },
+  {
+    path: '*',
+    element: <div>Такого магазина нет</div>,
   },
 ]);

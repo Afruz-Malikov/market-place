@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import style from './breadcrumbs.module.scss';
-import { useMatches, Link } from 'react-router-dom';
+import { useMatches } from 'react-router-dom';
 import Container from '../UI/Container/Container';
 import { ReactNode } from 'react';
+import { CustomLink } from '../CustomLink/CustomLink';
 
 interface BreadcrumbHandle {
   breadcrumb?: string | ((match: any) => ReactNode);
@@ -10,7 +11,6 @@ interface BreadcrumbHandle {
 
 function Breadcrumbs() {
   const matches = useMatches();
-
   // Вычисляем только отображаемые хлебные крошки
   const crumbs = matches
     .map((match) => {
@@ -23,7 +23,7 @@ function Breadcrumbs() {
       return breadcrumb ? { breadcrumb, pathname: match.pathname } : null;
     })
     .filter(Boolean);
-
+  console.log(crumbs);
   if (crumbs.length <= 1) return null;
 
   return (
@@ -33,13 +33,12 @@ function Breadcrumbs() {
           const isLast = index === crumbs.length - 1;
           return (
             <span key={index} className={style.breadcrumb}>
-            
               {isLast ? (
                 <span className={clsx(style.breadcrumb, style.active)}>
                   {item!.breadcrumb}
                 </span>
               ) : (
-                <Link to={item!.pathname}>{item!.breadcrumb}</Link>
+                <CustomLink to={item!.pathname}>{item!.breadcrumb}</CustomLink>
               )}
               {!isLast && ' > '}
             </span>

@@ -5,6 +5,7 @@ import { api } from './services';
 import { basketSlice } from './slices/basketSlice';
 import { folderSlice } from './slices/folderSlice';
 import { modalsSlice } from './slices/modalSlice';
+import { shopSlice } from './slices/shopSlice';
 export const store = configureStore({
   reducer: {
     products: productSlice.reducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
     basket: basketSlice.reducer,
     folders: folderSlice.reducer,
     modals: modalsSlice.reducer,
+    shop: shopSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(api.middleware),

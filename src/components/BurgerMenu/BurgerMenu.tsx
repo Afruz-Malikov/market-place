@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import CatalogModalMobile from '../CatalogModal/CatalogModalMobile';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CustomLink } from '../CustomLink/CustomLink';
 
 interface BurgerMenuProps {
   isOpen?: boolean;
@@ -76,20 +77,19 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
           </button>
           <CatalogModalMobile isOpen={isOpenCatalog} onClose={onClose} />
         </div>
-
-        <Link to="/basket" onClick={onClose}>
+        <CustomLink to="/basket" onClick={onClose}>
           <button>
             <BasketIcon />
             <span>{t('header.in_basketMobile')}</span>{' '}
             {/* Перевод текста для корзины */}
           </button>
-        </Link>
-        <Link to="/orders" onClick={onClose}>
+        </CustomLink>
+        <CustomLink to="/orders" onClick={onClose}>
           <button>
             <OrderIcon />
             <span>{t('header.orders')}</span> {/* Перевод текста для заказов */}
           </button>
-        </Link>
+        </CustomLink>
         <Link to={`tel:+82 10-5615-5694`} className={style.phone}>
           <PhoneIcon /> {t('header.phone_number')}{' '}
         </Link>

@@ -5,12 +5,16 @@ import Container from '../../components/UI/Container/Container';
 import clsx from 'clsx';
 import { useGetUserOrdersQuery } from '../../store/services';
 import spinStyle from '../../components/LoaderTrigger/loadertrigger.module.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 function Order() {
   const { t, i18n } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
-
-  const { data: transactions, isLoading } = useGetUserOrdersQuery();
+  const shopId = useSelector((state: RootState) => state.shop.shop?.id);
+  const { data: transactions, isLoading } = useGetUserOrdersQuery(shopId, {
+    skip: !shopId,
+  });
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

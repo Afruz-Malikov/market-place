@@ -16,6 +16,8 @@ function Home() {
   const { products, searchFilterResult, isLoading } = useSelector(
     (state: RootState) => state.products,
   );
+  const shop = useSelector((state) => state.shop.shop);
+  console.log(shop);
   const { categoryId, subCategoryId } = useParams();
   const [visibleCountBySection, setVisibleCountBySection] = useState<
     Record<number, number>
@@ -136,11 +138,14 @@ function Home() {
             </Subtitle>
             <div className={style.wrapper}>
               {section.products.slice(0, visibleCount).map((product) => {
+                const currentPrice = product.price.find(
+                  (item) => item.id === shop?.counterparty_info?.pricetype,
+                );
                 return (
                   <ProductCard
                     key={product.product_id}
                     id={product.product_id}
-                    price={Math.ceil(Number(product.price?.[0]?.p || 0) / 100)}
+                    price={Math.ceil(Number(currentPrice?.p || 0) / 100)}
                     seriesNumber={product.product_code}
                     quantity={product.quantity}
                     title={product.translate?.[i18n.language] || product.name}

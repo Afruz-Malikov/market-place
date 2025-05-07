@@ -1,14 +1,15 @@
-import clsx from "clsx";
-import style from "./catalogmodalmobile.module.scss";
-import { useEffect, useState } from "react";
-import ForwardArrowIcon from "../../assets/svg/arrow_forward.svg?react";
-import BackArrowIcon from "../../assets/svg/arrow_back.svg?react";
+import clsx from 'clsx';
+import style from './catalogmodalmobile.module.scss';
+import { useEffect, useState } from 'react';
+import ForwardArrowIcon from '../../assets/svg/arrow_forward.svg?react';
+import BackArrowIcon from '../../assets/svg/arrow_back.svg?react';
 
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-import { Folder } from "../../types/Categories";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { Folder } from '../../types/Categories';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { CustomLink } from '../CustomLink/CustomLink';
 
 interface CatalogModalMobileProps {
   isOpen?: boolean;
@@ -22,11 +23,11 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
   const mainCategories = folder[1]?.children ?? [];
   useEffect(() => {
     const burgerModal = document.querySelector(
-      ".burger__modal"
+      '.burger__modal',
     ) as HTMLElement | null;
 
     if (burgerModal) {
-      burgerModal.style.overflow = selectedCategory ? "hidden" : "scroll";
+      burgerModal.style.overflow = selectedCategory ? 'hidden' : 'scroll';
     }
   }, [selectedCategory]);
 
@@ -41,7 +42,7 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                   style.mainCategoryItem,
                   selectedCategory &&
                     selectedCategory.id === category.id &&
-                    style.active
+                    style.active,
                 )}
                 key={category.id}
               >
@@ -49,20 +50,23 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                   className={style.mainCategoryButton}
                   onClick={() =>
                     setSelectedCategory(
-                      selectedCategory?.id === category.id ? null : category
+                      selectedCategory?.id === category.id ? null : category,
                     )
                   }
                 >
                   {category.product_count === 0 ? null : !category.children ? (
                     <>
                       <span className={style.arrow}></span>
-                      <Link to={`/category/${category.id}`} onClick={onClose}>
+                      <CustomLink
+                        to={`/category/${category.id}`}
+                        onClick={onClose}
+                      >
                         <span>
                           {category.translate?.[i18n.language]
                             ? category.translate[i18n.language]
                             : category.name}
                         </span>
-                      </Link>
+                      </CustomLink>
                       <span className={style.arrow}></span>
                     </>
                   ) : (
@@ -70,7 +74,7 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                       <span
                         className={clsx(
                           style.arrow,
-                          selectedCategory?.id === category.id && style.active
+                          selectedCategory?.id === category.id && style.active,
                         )}
                       >
                         <BackArrowIcon />
@@ -79,14 +83,14 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                       <span>
                         {category.translate?.[i18n.language]
                           ? category.translate[i18n.language]
-                          : category.name}{" "}
+                          : category.name}{' '}
                       </span>
                       <span
                         className={clsx(
                           style.arrow,
                           (selectedCategory === null ||
                             selectedCategory?.id !== category.id) &&
-                            style.active
+                            style.active,
                         )}
                       >
                         <ForwardArrowIcon />
@@ -98,7 +102,7 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                   <div
                     className={clsx(
                       style.subCategories,
-                      selectedCategory?.id === category.id && style.active
+                      selectedCategory?.id === category.id && style.active,
                     )}
                   >
                     <ul className={style.subCategoryList}>
@@ -106,17 +110,17 @@ function CatalogModalMobile({ isOpen, onClose }: CatalogModalMobileProps) {
                         if (!subCat.product_count) return null;
                         return (
                           <li key={subCat.id} className={style.subCategoryItem}>
-                            <Link
+                            <CustomLink
                               to={`/catalog/${subCat.pid}/${subCat.id}`}
                               onClick={onClose}
                             >
                               {subCat.translate?.[i18n.language]
                                 ? subCat.translate[i18n.language]
-                                : subCat.name}{" "}
+                                : subCat.name}{' '}
                               <span className={style.subCount}>
                                 ({subCat.product_count})
                               </span>
-                            </Link>
+                            </CustomLink>
                           </li>
                         );
                       })}

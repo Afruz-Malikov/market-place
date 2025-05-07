@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Button from '../../components/UI/Button/Button';
 import Container from '../../components/UI/Container/Container';
-import Subtitle from '../../components/UI/Subtitle/Subtitle';
+// import Subtitle from '../../components/UI/Subtitle/Subtitle';
 import Textarea from '../../components/UI/Textarea/Textarea';
 import Title from '../../components/UI/Title/Title';
 import style from './basketcheckout.module.scss';
@@ -13,14 +13,18 @@ import { openSuccessCheckoutModal } from '../../store/slices/modalSlice';
 import React, { useState } from 'react';
 import { setBasket } from '../../store/slices/basketSlice';
 import { useCreateOrderMutation } from '../../store/services';
-import { Category } from '../../types/Product';
+import { CustomLink } from '../../components/CustomLink/CustomLink';
+import { useCustomNavigate } from '../../components/CustomNavigate/CustomNavigate';
+// import { Category } from '../../types/Product';
 
 function BasketCheckout() {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
-  const { products } = useSelector((state: RootState) => state.products);
+  // const { products } = useSelector((state: RootState) => state.products);
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
+  const shopId = useSelector((state: RootState) => state.shop.shop.id);
+
   const [createOrder] = useCreateOrderMutation();
   // const findCategoryById = (
   //   categories: Category[],
@@ -72,6 +76,7 @@ function BasketCheckout() {
       }));
       await createOrder({
         products: formattedBasket,
+        shopId,
       }).unwrap();
       const totalPrice = basketProducts.reduce(
         (acc, item) =>
@@ -79,7 +84,6 @@ function BasketCheckout() {
         0,
       );
       dispatch(setBasket([]));
-
       navigate('/');
       dispatch(openSuccessCheckoutModal(totalPrice));
     } catch (error) {
@@ -93,9 +97,10 @@ function BasketCheckout() {
     return (
       <Container styles={{ flexDirection: 'column', gap: 20 }}>
         <Title>{t('basket_checkout.nothing_to_checkout')}</Title>
-        <Link to="/">
+
+        <CustomLink to="/">
           <Button>{t('basket.go_to_shop')}</Button>
-        </Link>
+        </CustomLink>
       </Container>
     );
   }

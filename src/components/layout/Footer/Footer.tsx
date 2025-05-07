@@ -1,20 +1,22 @@
-import { useTranslation } from "react-i18next";
-import style from "./footer.module.scss";
-import Input from "../../UI/Input/Input";
-import Textarea from "../../UI/Textarea/Textarea";
-import Title from "../../UI/Title/Title";
-import Container from "../../UI/Container/Container";
-import PhoneIcon from "../../../assets/svg/phone.svg?react";
+import { useTranslation } from 'react-i18next';
+import style from './footer.module.scss';
+import Input from '../../UI/Input/Input';
+import Textarea from '../../UI/Textarea/Textarea';
+import Title from '../../UI/Title/Title';
+import Container from '../../UI/Container/Container';
+import PhoneIcon from '../../../assets/svg/phone.svg?react';
 // import EmailIcon from '../../../assets/svg/email.svg?react';
-import ClockIcon from "../../../assets/svg/clock.svg?react";
+import ClockIcon from '../../../assets/svg/clock.svg?react';
 // import PinIcon from '../../../assets/svg/pin.svg?react';
-import Text from "../../UI/Text/Text";
-import Button from "../../UI/Button/Button";
-import Subtitle from "../../UI/Subtitle/Subtitle";
-import InfoCard from "../../InfoCard/InfoCard";
-import React, { useState, useEffect } from "react";
-import { useCreateFeedbackMutation } from "../../../store/services";
-import { Link } from "react-router-dom";
+import Text from '../../UI/Text/Text';
+import Button from '../../UI/Button/Button';
+import Subtitle from '../../UI/Subtitle/Subtitle';
+import InfoCard from '../../InfoCard/InfoCard';
+import React, { useState, useEffect } from 'react';
+import { useCreateFeedbackMutation } from '../../../store/services';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 interface FeedbackValidationError {
   status: number;
   error: string;
@@ -27,14 +29,15 @@ interface FeedbackValidationError {
 
 function Footer() {
   const { t } = useTranslation();
+  const shopId = useSelector((state: RootState) => state.shop.shop.id);
   const [createFeedback] = useCreateFeedbackMutation();
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorFields, setErrorFields] = useState<
-    Partial<FeedbackValidationError["messages"]>
+    Partial<FeedbackValidationError['messages']>
   >({});
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +47,12 @@ function Footer() {
     setIsSuccess(false);
 
     try {
-      const answer = await createFeedback({ email, phone, message }).unwrap();
+      const answer = await createFeedback({
+        email,
+        phone,
+        message,
+        shopId,
+      }).unwrap();
       console.log(answer);
       setIsSuccess(true);
     } catch (err: any) {
@@ -54,9 +62,9 @@ function Footer() {
       }
     } finally {
       setIsLoading(false);
-      setPhone("");
-      setEmail("");
-      setMessage("");
+      setPhone('');
+      setEmail('');
+      setMessage('');
     }
   };
 
@@ -74,22 +82,22 @@ function Footer() {
     <footer className={style.footer}>
       <Container
         styles={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
         }}
         className={style.footerContainer}
       >
         <div className={style.feedback}>
           <Title styles={{ fontWeight: 600, fontSize: 30, marginBottom: 20 }}>
-            {t("footer.feedback_title")}
+            {t('footer.feedback_title')}
           </Title>
           <Text
             color="black"
             styles={{ fontWeight: 400, marginBottom: 36 }}
             fontSize="18px"
           >
-            {t("footer.feedback_description")}
+            {t('footer.feedback_description')}
           </Text>
           <form onSubmit={handleSubmit}>
             <div className={style.inputs}>
@@ -101,7 +109,7 @@ function Footer() {
                   value={phone}
                   type="number"
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder={t("footer.phone_placeholder")}
+                  placeholder={t('footer.phone_placeholder')}
                   iconPosition="start"
                   svgStyles={{ width: 28, height: 28 }}
                   required
@@ -129,7 +137,7 @@ function Footer() {
               color="black"
               fontSize="18px"
             >
-              {t("footer.task_description")}
+              {t('footer.task_description')}
             </Subtitle>
             <div className={style.textarea}>
               {errorFields.message && (
@@ -138,14 +146,14 @@ function Footer() {
               <Textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                placeholder={t("footer.message_placeholder")}
+                placeholder={t('footer.message_placeholder')}
               />
             </div>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? t("footer.sending") : t("footer.send_button")}
+              {isLoading ? t('footer.sending') : t('footer.send_button')}
             </Button>
             {isSuccess && (
-              <Text color="green">{t("footer.success_message")}</Text>
+              <Text color="green">{t('footer.success_message')}</Text>
             )}
           </form>
         </div>
@@ -156,12 +164,12 @@ function Footer() {
                 <PhoneIcon />
               </Link>
             }
-            title={t("footer.phone_title")}
+            title={t('footer.phone_title')}
             text="+82 10-5615-5694"
           />
           <InfoCard
             icon={<ClockIcon />}
-            title={t("footer.working_hours_title")}
+            title={t('footer.working_hours_title')}
             text="03.00 - 23.59"
           />
           {/* <InfoCard

@@ -13,12 +13,14 @@ import { Category } from '../../types/Product';
 import { useMemo } from 'react';
 import { useChangeBasketMutation } from '../../store/services';
 import { setBasket } from '../../store/slices/basketSlice';
+import { CustomLink } from '../../components/CustomLink/CustomLink';
 
 function Basket() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const basketProducts = useSelector((state: RootState) => state.basket.basket);
+  const shopId = useSelector((state: RootState) => state.shop.shop.id);
   const [changeBasket] = useChangeBasketMutation();
   function getProductLabel(count: number): string {
     const lang = i18n.language;
@@ -126,14 +128,14 @@ function Basket() {
     return (
       <Container styles={{ flexDirection: 'column', gap: 20 }}>
         <Title>{t('basket.empty')}</Title>
-        <Link to="/">
+        <CustomLink to="/">
           <Button>{t('basket.go_to_shop')}</Button>
-        </Link>
+        </CustomLink>
       </Container>
     );
   }
   const handleClearBasket = async () => {
-    await changeBasket({ products: [] })
+    await changeBasket({ products: [], shopId })
       .unwrap()
       .then((v) => console.log(v))
       .catch((err) => console.error(err));
@@ -146,7 +148,6 @@ function Basket() {
         <div className={style.productsWrapper}>
           <div className={style.wrapper}>
             {basketProducts.map((item, key) => {
-              console.log(item);
               if (!item) return null;
               return (
                 <ProductCard
@@ -178,9 +179,9 @@ function Basket() {
               </Text>
             </div>
             <div>
-              <Link to="/basket/checkout">
+              <CustomLink to="/basket/checkout">
                 <Button>{t('basket.checkout_button')}</Button>
-              </Link>
+              </CustomLink>
               <Button onClick={handleClearBasket} className={style.clearButton}>
                 {t('basket.clear_button')}
               </Button>
@@ -202,9 +203,9 @@ function Basket() {
               <span>{t('basket.total')}:</span>
               <Title className={style.productPrice}>{totalPrice} ₩/кор</Title>
             </div>
-            <Link to="/basket/checkout">
+            <CustomLink to="/basket/checkout">
               <Button>{t('basket.checkout_button')}</Button>
-            </Link>
+            </CustomLink>
             <Button onClick={handleClearBasket} className={style.clearButton}>
               {t('basket.clear_button')}
             </Button>

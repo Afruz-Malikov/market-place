@@ -4,6 +4,7 @@ import { BasketResponse, ChangeBasketProduct } from '../../types/Basket';
 import { Folder } from '../../types/Categories';
 import { Shop } from '../../types/Shop';
 import { Order } from '../../types/Order';
+
 interface getAllOrdersResponse {
   message: string;
   products: Category[];
@@ -41,41 +42,46 @@ interface SearchFilterResponse {
   message: string;
   folders?: Category[];
 }
+
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://dev-api.flin.uz/api/NmMfS55',
+    baseUrl: 'https://dev-api.flin.uz/api/',
   }),
   endpoints: (builder) => ({
-    getAllOrders: builder.query<getAllOrdersResponse, void>({
-      query: () => '/products',
+    getAllOrders: builder.query<getAllOrdersResponse, string>({
+      query: (shopId) => `${shopId}/products`,
     }),
-    getUserBasket: builder.query<BasketResponse, void>({
-      query: () => '/cart',
+    getUserBasket: builder.query<BasketResponse, string>({
+      query: (shopId) => `${shopId}/cart`,
     }),
-    getShopInfo: builder.query<ShopResponse, void>({
-      query: () => '/shop',
+    getShopInfo: builder.query<ShopResponse, string>({
+      query: (shopId) => `${shopId}/shop`,
     }),
-    getFolders: builder.query<FoldersResponse, void>({
-      query: () => '/folders',
+    getFolders: builder.query<FoldersResponse, string>({
+      query: (shopId) => `${shopId}/folders`,
     }),
-    getUserOrders: builder.query<OrdersResponse, void>({
-      query: () => 'https://dev-api.flin.uz/api/L7zoPFw/orders?limit=20',
+    getUserOrders: builder.query<OrdersResponse, string>({
+      query: (shopId) => `${shopId}/orders?limit=20`,
     }),
-    getNewProducts: builder.query<getNewOrderResponse, void>({
-      query: () => '/new-products',
+    getNewProducts: builder.query<getNewOrderResponse, string>({
+      query: (shopId) => `${shopId}/new-products`,
     }),
-    searchProducts: builder.query<SearchFilterResponse, string>({
-      query: (searchTerm) => `/search?s=${encodeURIComponent(searchTerm)}`,
+    searchProducts: builder.query<
+      SearchFilterResponse,
+      { shopId: string; searchTerm: string }
+    >({
+      query: ({ shopId, searchTerm }) =>
+        `${shopId}/search?s=${encodeURIComponent(searchTerm)}`,
     }),
     changeBasket: builder.mutation<
       changeBasketResponse,
-      { products: ChangeBasketProduct[] }
+      { shopId: string; products: ChangeBasketProduct[] }
     >({
-      query: (body) => ({
-        url: '/cart',
+      query: ({ shopId, products }) => ({
+        url: `${shopId}/cart`,
         method: 'POST',
-        body: JSON.stringify(body),
+        body: JSON.stringify({ products }),
         headers: {
           'Content-Type': 'text/plain',
         },
@@ -83,12 +89,12 @@ export const api = createApi({
     }),
     createOrder: builder.mutation<
       createOrderResponse,
-      { products: ChangeBasketProduct[] }
+      { shopId: string; products: ChangeBasketProduct[] }
     >({
-      query: (body) => ({
-        url: '/order/create',
+      query: ({ shopId, products }) => ({
+        url: `${shopId}/order/create`,
         method: 'POST',
-        body: JSON.stringify(body),
+        body: JSON.stringify({ products }),
         headers: {
           'Content-Type': 'text/plain',
         },
@@ -96,12 +102,12 @@ export const api = createApi({
     }),
     createFeedback: builder.mutation<
       createFeedbackResponse,
-      { phone: string; email: string; message: string }
+      { shopId: string; phone: string; email: string; message: string }
     >({
-      query: (body) => ({
-        url: '/feedback/create',
+      query: ({ shopId, ...rest }) => ({
+        url: `${shopId}/feedback/create`,
         method: 'POST',
-        body: JSON.stringify(body),
+        body: JSON.stringify(rest),
         headers: {
           'Content-Type': 'text/plain',
         },

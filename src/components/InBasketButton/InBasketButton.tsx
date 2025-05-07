@@ -30,8 +30,9 @@ function InBasketButton({
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { basket } = useSelector((state: RootState) => state.basket);
+  const shopId = useSelector((state: RootState) => state.shop.shop.id);
   const [quantity, setQuantity] = useState(0);
-  const [changeBasket] = useChangeBasketMutation();
+  const [changeBasket] = useChangeBasketMutation(shopId);
 
   const throttledSyncBasketRef = useRef(
     throttle(async (updatedBasket: { id: string; quantity: string }[]) => {
