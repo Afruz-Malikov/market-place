@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 // import BreakfastIcon from '../../assets/svg/breakfast.svg?react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CustomLink } from '../CustomLink/CustomLink';
 interface CatalogMenuProps {
