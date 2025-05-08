@@ -16,7 +16,6 @@ import CloseIcon from '../../../assets/svg/close.svg?react';
 import Select from '../../UI/Select/Select';
 import React, { useCallback, useEffect, useState } from 'react';
 import CatalogMenu from '../../CatalogModal/CatalogModal';
-import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../BreadCrumbs/BreadCrumbs';
 import clsx from 'clsx';
 import { debounce } from 'lodash';
@@ -30,6 +29,7 @@ import {
 } from '../../../store/slices/productSlice';
 import { useSearchProductsQuery } from '../../../store/services';
 import { CustomLink } from '../../CustomLink/CustomLink';
+import { useCustomNavigate } from '../../CustomNavigate/CustomNavigate';
 
 interface SelectOption {
   label: string;
@@ -49,7 +49,7 @@ function Header() {
   const [searchValue, setSearchValue] = useState('');
   const [delayedSearchValue, setDelayedSearchValue] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
 
   const bask = useSelector(
     (state: RootState) => state.products.searchFilterResult,
