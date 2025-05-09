@@ -98,7 +98,7 @@ function Layout() {
               cat_name: folder.name,
               cat_id: folder.id.toString(),
               ...product,
-              price: Math.ceil(Number(currentPrice?.p) || 0 / 100),
+              price: Math.ceil(Number(currentPrice?.p) / 100),
             };
           }),
         )
