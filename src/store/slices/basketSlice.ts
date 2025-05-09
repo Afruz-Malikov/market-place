@@ -27,7 +27,6 @@ export const basketSlice = createSlice({
       const index = state.basket.findIndex(
         (item) => item.product_id === action.payload.product_id,
       );
-      console.log(action.payload);
       if (index >= 0) {
         state.basket[index].quantity_in_cart = action.payload.quantity_in_cart;
       } else {

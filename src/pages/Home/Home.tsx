@@ -18,7 +18,6 @@ function Home() {
     (state: RootState) => state.products,
   );
   const shop = useSelector((state: RootState) => state.shop.shop);
-  console.log(shop);
   const { categoryId, subCategoryId } = useParams();
   const [visibleCountBySection, setVisibleCountBySection] = useState<
     Record<number, number>

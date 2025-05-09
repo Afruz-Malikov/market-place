@@ -60,7 +60,7 @@ function BasketCheckout() {
       navigate('/');
       dispatch(openSuccessCheckoutModal(totalPrice));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

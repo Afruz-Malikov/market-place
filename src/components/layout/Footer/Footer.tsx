@@ -53,7 +53,6 @@ function Footer() {
         message,
         shopId,
       }).unwrap();
-      console.log(answer);
       setIsSuccess(true);
     } catch (err: any) {
       console.error(err);

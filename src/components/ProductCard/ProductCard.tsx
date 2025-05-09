@@ -66,7 +66,6 @@ function ProductCard({
       .filter((item) => Number(item.id) !== id);
     changeBasket({ products: updatedBasket, shopId })
       .unwrap()
-      .then((v) => console.log(v))
       .catch((error) => {
         console.error('Ошибка при обновлении корзины:', error);
       });

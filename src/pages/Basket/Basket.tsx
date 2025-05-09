@@ -108,7 +108,6 @@ function Basket() {
     return null;
   };
   const totalPrice = useMemo(() => {
-    console.log(basketProducts);
     return basketProducts
       .reduce(
         (acc, item) =>
@@ -141,7 +140,6 @@ function Basket() {
   const handleClearBasket = async () => {
     await changeBasket({ products: [], shopId: shopId })
       .unwrap()
-      .then((v) => console.log(v))
       .catch((err) => console.error(err));
     dispatch(setBasket([]));
   };

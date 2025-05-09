@@ -106,7 +106,6 @@ function Header() {
         ),
       );
     } else if (searchData) {
-      console.log(bask);
       dispatch(filterOrders([]));
     }
   }, [searchData, isFetching, dispatch]);
